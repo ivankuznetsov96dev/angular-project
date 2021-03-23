@@ -1,0 +1,21 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-profile-img {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    position:relative;
+    border:1px solid whitesmoke;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &>* {
+    margin-left: 5px;
+  }
+}

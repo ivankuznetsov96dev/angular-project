@@ -1,0 +1,36 @@
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+
+  .user-info {
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .img_btn {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+
+    .user-profile-photo {
+      height: 200px;
+      width: 200px;
+      position:relative;
+      border:1px solid black;
+      overflow:hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .follow-btn {
+      margin: 10px 0;
+    }
+  }
+}
