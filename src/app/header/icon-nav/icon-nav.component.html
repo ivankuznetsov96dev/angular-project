@@ -1,4 +1,29 @@
 <nav>
-  <p>icon-nav works!</p>
+  <button mat-icon-button>
+    <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon aria-hidden="false" aria-label="Add new post">wallpaper</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>language</mat-icon>
+      <span>Language</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>receipt</mat-icon>
+      <span>Change theme</span>
+    </button>
+    <button mat-menu-item (click)="logOut()">
+      <mat-icon>settings_power</mat-icon>
+      <span>Log Out</span>
+    </button>
+  </mat-menu>
+
+
   <app-profile-img class="header-profile-img"></app-profile-img>
 </nav>

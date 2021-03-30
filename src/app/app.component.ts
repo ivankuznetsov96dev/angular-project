@@ -14,7 +14,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    // const  url = 'https://api.github.com/search/users?q=';
     this.firestore.collection('testbase').valueChanges().subscribe(value=> console.log(value))
   }
 }

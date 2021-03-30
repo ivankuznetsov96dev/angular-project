@@ -1,0 +1,40 @@
+<!--<button class="btn" (click)="goTo()">Sign In</button>-->
+
+<body>
+  <div [ngClass]="eventCounter">
+    <!-- Sign Up -->
+    <div class="container__form container--signup">
+      <div class="form">
+        <h2 class="form__title">Welcome to the <strong>InstaClone</strong></h2>
+        <button class="btn">Learn more</button>
+      </div>
+    </div>
+
+    <!-- Sign In -->
+    <div class="container__form container--signin">
+      <div class="form">
+        <h2 class="form__title">Sign In</h2>
+<!--        <button class="btn" (click)="goTo()">Authorization with Google</button>-->
+        <div class="google-btn" (click)="goTo()">
+          <div class="google-icon-wrapper">
+            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+          </div>
+          <p class="btn-text"><b>Sign in with google</b></p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="container__overlay">
+      <div class="overlay">
+        <div class="overlay__panel overlay--left">
+          <button class="btn" id="signIn" (click)="openSignInPanel()">Sign In</button>
+        </div>
+        <div class="overlay__panel overlay--right">
+          <button class="btn" id="signUp" (click)="openSignUpPanel()">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

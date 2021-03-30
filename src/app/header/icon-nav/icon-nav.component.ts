@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-icon-nav',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IconNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private authService: AuthService) { }
+
+  public logOut(): void {
+    this.authService.signOut().subscribe(() => this.router.navigate(['/login']));
+  }
 
   ngOnInit(): void {
   }

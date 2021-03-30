@@ -1,24 +1,27 @@
 .header {
-  background-color: red;
-}
+  border-bottom: #4e4e4e 1px solid;
 
-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  .logo {
-    font-family: 'Roboto Condensed', sans-serif;
-    text-transform: uppercase;
-    user-select: none;
-    font-size: 40px;
-    line-height: 65pt;
-    color: #4e4e4e;
-    margin: 5px 0;
-  }
+    .logo {
+      font-family: 'Satisfy', cursive;
+      user-select: none;
+      font-size: 40px;
+      line-height: 65pt;
+      color: #4e4e4e;
+      margin: 5px 0;
+    }
 
-  .input {
-    width: 280px;
-    height: 24px;
+    .input {
+      width: 280px;
+      height: 24px;
+    }
+
+    app-icon-nav {
+      cursor: pointer;
+    }
   }
 }

@@ -1,8 +1,11 @@
 .counters {
   font-size: large;
   font-weight: bold;
+  margin: 20px 0 0;
+  padding: 20px 0 10px;
+  border-top: #4e4e4e 1px solid;
   display: flex;
-  margin: 20px 0;
+  justify-content: space-between;
 
   &>span {
     margin: 0 20px;

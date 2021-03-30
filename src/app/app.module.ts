@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +16,15 @@ import { ProfileInfoComponent } from './profile/profile-info/profile-info.compon
 import { ProfileImgComponent } from './profile/profile-info/profile-img/profile-img.component';
 import { FollowBtnComponent } from './profile/profile-info/follow-btn/follow-btn.component';
 import { ProfileInfoCountersComponent } from './profile/profile-info/profile-info-counters/profile-info-counters.component';
-import { PostsListsComponent } from './posts-lists/posts-lists.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import { MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
+import { LikesCommentsComponent } from './profile/posts-pool/profile-post/likes-comments/likes-comments.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +38,25 @@ import { PostsListsComponent } from './posts-lists/posts-lists.component';
     ProfileImgComponent,
     FollowBtnComponent,
     ProfileInfoCountersComponent,
-    PostsListsComponent
+    LoginComponent,
+    LikesCommentsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSliderModule,
+    MatTabsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCardModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

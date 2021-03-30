@@ -1,10 +1,19 @@
-.user-profile-photo {
-  max-width: none;
-  min-width: auto;
-  min-height: auto;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+//.user-profile-photo {
+//  max-width: none;
+//  min-width: auto;
+//  min-height: auto;
+//  height: 100%;
+//  position: absolute;
+//  top: 50%;
+//  left: 50%;
+//  transform: translate(-50%, -50%);
+//}
+
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
