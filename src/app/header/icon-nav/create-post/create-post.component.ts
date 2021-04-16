@@ -62,7 +62,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   public postCreater(): void {
-    this.crudService.createEntity('posts', {...this.createNewPostReactiveForm.value, imageLink: this.imageLink, userPostCreater: localStorage.getItem('userLoginID')})
+    this.crudService.createEntity('posts', {...this.createNewPostReactiveForm.value, imageLink: this.imageLink, userPostCreater: localStorage.getItem('userLoginID'), likes: {}})
       .subscribe(value => {
         this.user_postsCounter.push(value);
         this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': this.user_postsCounter});

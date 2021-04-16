@@ -4,15 +4,16 @@
     <mat-card-title>Shiba Inu</mat-card-title>
     <mat-card-subtitle>Dog Breed</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image class="post-img" src="{{postImg}}" alt="{{postImg}}">
+  <div>{{card.id}}</div>
+  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}">
   <mat-card-actions class="card-actions">
     <app-likes-comments></app-likes-comments>
     <mat-icon>folder_open</mat-icon>
   </mat-card-actions>
   <mat-card-content>
     <p>
-      <span>{{postPostTags}}</span>
-      <span>{{postPeoplesID}}</span>
+      <span>{{card.postTags}}</span>
+      <span>{{card.peoplesID}}</span>
 <!--      <span>#lernJS</span>,-->
 <!--      <span>#SomeTestTag</span>,-->
 <!--      <span>@ivan_ahmed</span>,-->

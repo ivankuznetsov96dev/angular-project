@@ -6,6 +6,7 @@ import {CrudService} from "../services/crud.service";
 import {FormBuilder} from "@angular/forms";
 import {UploadService} from "../services/upload.service";
 import {StorageService} from "../services/storage.service";
+import {Post} from "../services/interfaces/post.model";
 
 @Component({
   selector: 'app-feed',
@@ -36,10 +37,9 @@ export class FeedComponent implements OnInit, DoCheck {
     private storageService: StorageService,
   ) { }
 
-  // public counterObj: postsFeed;
   public counterObj;
   public counterUserPosts;
-  public filtredObj;
+  public filtredObj: Post[];
 
   ngOnInit(): void {
     this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {

@@ -29,15 +29,17 @@ export class PostsPoolComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit(): void {
-    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
-      this.counterUserPosts = value['user_posts'];
-      console.log(this.counterUserPosts);
-    });
+    // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+    //   this.counterUserPosts = value['user_posts'];
+    //   console.log(this.counterUserPosts);
+    // });
+    this.filtrPipe();
 
     this.crudService.handleData('posts').subscribe(value => {
       this.counterObj = value;
       console.log(value);
       console.log(this.counterObj);
+      this.filtrPipe();
     });
   }
 
@@ -45,9 +47,16 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     this.postsFilter();
   }
 
+  public filtrPipe() {
+    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+      this.counterUserPosts = value['user_posts'];
+      console.log(this.counterUserPosts);
+    });
+  }
+
   public postsFilter() {
     this.filtredObj = this.counterObj.filter(element => this.counterUserPosts.includes(element['id']))
-    console.log(this.filtredObj)
+    // console.log(this.filtredObj)
   }
 
   public trackFunction(index, item): string {
