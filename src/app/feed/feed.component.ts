@@ -42,20 +42,30 @@ export class FeedComponent implements OnInit, DoCheck {
   public filtredObj: Post[];
 
   ngOnInit(): void {
-    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
-      this.counterUserPosts = value['user_posts'];
-      console.log(this.counterUserPosts);
-    });
+    // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+    //   this.counterUserPosts = value['user_posts'];
+    //   console.log(this.counterUserPosts);
+    // });
+
+    this.filtrPipe();
 
     this.crudService.handleData('posts').subscribe(value => {
       this.counterObj = value;
       console.log(value);
       console.log(this.counterObj);
+      this.filtrPipe();
     });
   }
 
   ngDoCheck(): void {
     this.postsFilter();
+  }
+
+  public filtrPipe() {
+    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+      this.counterUserPosts = value['user_posts'];
+      console.log(this.counterUserPosts);
+    });
   }
 
   public postsFilter() {

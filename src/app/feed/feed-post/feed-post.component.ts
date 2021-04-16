@@ -23,7 +23,6 @@ export class FeedPostComponent implements OnInit {
   ngOnInit(): void {
     // this.peoplesID.push(this.postPeoplesID.split(','));
     // console.log(this.peoplesID)
-
     console.log(this.card);
   }
 

@@ -1,10 +1,14 @@
 <div class="flex">
   <div class="flex info">
-    <span>123</span>
-    <mat-icon>favorite</mat-icon>
+    <button mat-icon-button (click)="checkLikesCounter()">
+      <span>{{likesCounter}}</span>
+      <mat-icon>favorite</mat-icon>
+    </button>
   </div>
   <div class="flex info">
-    <span>counter</span>
-    <mat-icon> chat</mat-icon>
+    <button mat-icon-button>
+      <span>counter</span>
+      <mat-icon> chat</mat-icon>
+    </button>
   </div>
 </div>
