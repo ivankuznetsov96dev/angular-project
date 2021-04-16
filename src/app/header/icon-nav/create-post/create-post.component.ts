@@ -58,22 +58,11 @@ export class CreatePostComponent implements OnInit {
       this.postCreater();
     });
 
-     // if (this.user_postsCounter) {
-     //   this.crudService.createEntity('posts', {...this.createNewPostReactiveForm.value, imageLink: this.imageLink})
-     //     .subscribe(value => {
-     //       this.user_postsCounter.push(value);
-     //       this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': this.user_postsCounter});
-     //       this.user_postsCounter = null;
-     //     });
-     // } else {
-     //   console.log('Error');
-     // }
-
     this.dialog.closeAll();
   }
 
   public postCreater(): void {
-    this.crudService.createEntity('posts', {...this.createNewPostReactiveForm.value, imageLink: this.imageLink})
+    this.crudService.createEntity('posts', {...this.createNewPostReactiveForm.value, imageLink: this.imageLink, userPostCreater: localStorage.getItem('userLoginID')})
       .subscribe(value => {
         this.user_postsCounter.push(value);
         this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': this.user_postsCounter});

@@ -48,6 +48,12 @@ export class ProfileComponent implements OnInit {
     // this.counter = this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe();
     // console.log(this.counter)
 
+    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+      if (value['user_posts'] === undefined) {
+        this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': []})
+      }
+    });
+
     this.getObjByLocaleUserID();
 
 

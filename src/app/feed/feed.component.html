@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="wrapper" *ngFor="let card of counterObj; trackBy:trackFunction;">
+<div class="wrapper" *ngFor="let card of filtredObj; trackBy:trackFunction;">
   <app-feed-post
     [postID]="card['id']"
     [postImg]="card['imageLink']"

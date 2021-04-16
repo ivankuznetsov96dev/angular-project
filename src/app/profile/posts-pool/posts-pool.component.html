@@ -1,7 +1,7 @@
 <mat-tab-group mat-align-tabs="center" >
   <mat-tab label="Publications">
     <div class="tab">
-      <div class="tab" *ngFor="let card of counterObj; trackBy:trackFunction;">
+      <div class="tab" *ngFor="let card of filtredObj; trackBy:trackFunction;">
         <app-profile-post
           [postID]="card['id']"
           [postImg]="card['imageLink']"
