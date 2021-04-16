@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-profile-post',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePostComponent implements OnInit {
 
+
+  @Input()
+  postImg: string;
+
+  @Input()
+  postID: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.postID)
   }
 
 }

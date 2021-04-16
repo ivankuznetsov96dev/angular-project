@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="wrapper" *ngFor="let card of counterObj; trackBy:trackFunction;">
+  <app-feed-post
+    [postID]="card['id']"
+    [postImg]="card['imageLink']"
+    [postPeoplesID]="card['peoplesID']"
+    [postPostTags]="card['postTags']"
+  ></app-feed-post>
+</div>
+
+<div class="wrapper">
+  <app-feed-post></app-feed-post>
+</div>

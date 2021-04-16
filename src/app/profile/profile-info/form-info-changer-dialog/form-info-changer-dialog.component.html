@@ -1,0 +1,47 @@
+<div class="form-info-changer">
+  <button mat-button class="cancel-btn" (click)="closeDialog()"><mat-icon>cancel</mat-icon></button>
+<h2 mat-dialog-title>Change profile info</h2>
+<div mat-dialog-content>
+  <form [formGroup]="myFirstReactiveForm" (submit)="onSubmit()">
+    <mat-form-field class="form-field">
+      <mat-label for="name">Name</mat-label>
+      <input matInput type="text" id="name" formControlName="name">
+      <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+      <!--        <mat-icon>close</mat-icon>-->
+      <!--      </button>-->
+    </mat-form-field>
+    <div class="error" *ngIf="isControlInvalid('name')">
+      The name must be only letters
+    </div>
+    <br/><br/>
+
+    <mat-form-field class="form-field">
+      <mat-label for="userTag">User ID</mat-label>
+      <input matInput type="text" id="userTag" formControlName="userTag">
+      <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+      <!--        <mat-icon>close</mat-icon>-->
+      <!--      </button>-->
+    </mat-form-field>
+    <div class="error" *ngIf="isControlInvalid('userTag')">
+      Input valid user tag, included "A-z", "-", ".", "_"
+    </div>
+    <br/><br/>
+
+    <mat-form-field class="form-field">
+      <mat-label for="userInfo">User ID</mat-label>
+      <input matInput type="text" id="userInfo" formControlName="userInfo">
+      <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+      <!--        <mat-icon>close</mat-icon>-->
+      <!--      </button>-->
+    </mat-form-field>
+    <br/><br/>
+
+    <button mat-button color="primary" type="submit">Push</button>
+  </form>
+
+  <br/>
+  <div>
+    {{myFirstReactiveForm.value | json}}
+  </div>
+</div>
+</div>

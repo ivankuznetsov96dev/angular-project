@@ -1,0 +1,81 @@
+<div class="form-info-changer">
+  <button mat-button class="cancel-btn" (click)="closeDialog()"><mat-icon>cancel</mat-icon></button>
+    <h2 mat-dialog-title>Create new post</h2>
+
+  <div mat-dialog-content>
+
+      <div *ngIf="!imageLink" class="form-group col-12">
+        <input type="file"
+               id="file"
+               #userPhoto
+               (change)="onFileSelected($event)"
+               name="image"
+               autocomplete="off"
+        />
+      </div>
+      <img  *ngIf="imageLink" [src]="imageLink" style="width: 293px; height: 293px; background-size: cover;"/>
+      <br>
+      <mat-progress-bar mode="determinate" max="100" [value]="progress"></mat-progress-bar>
+<!--      <progress max="100" [value]="progress" ></progress>-->
+
+      <form [formGroup]="createNewPostReactiveForm" (submit)="onSubmit()">
+        <mat-form-field class="form-field">
+          <mat-label for="peoplesID">Mark peoples:</mat-label>
+          <input matInput type="text" id="peoplesID" formControlName="peoplesID">
+          <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+          <!--        <mat-icon>close</mat-icon>-->
+          <!--      </button>-->
+        </mat-form-field>
+        <div class="error" *ngIf="isControlInvalid('peoplesID')">
+          Input valid user tag, included "@", "A-z", "-", ".", "_"
+        </div>
+        <br/><br/>
+
+        <mat-form-field class="form-field">
+          <mat-label for="postTags">Add tags:</mat-label>
+          <input matInput type="text" id="postTags" formControlName="postTags">
+          <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
+          <!--        <mat-icon>close</mat-icon>-->
+          <!--      </button>-->
+        </mat-form-field>
+        <div class="error" *ngIf="isControlInvalid('postTags')">
+          Input valid user tag, included "#", "A-z", "-", ".", "_"
+        </div>
+        <br/><br/>
+
+        <button mat-button color="primary" type="submit">Publish</button>
+        <div *ngIf="imageFlag === false" style="color: red">Error: upload photo under push publication</div>
+      </form>
+
+<!--    <form [formGroup]="myFirstReactiveForm" (submit)="onSubmit()">-->
+
+<!--      <mat-form-field class="form-field">-->
+<!--        <mat-label for="userTag">User ID</mat-label>-->
+<!--        <input matInput type="text" id="userTag" formControlName="userTag">-->
+<!--        &lt;!&ndash;      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">&ndash;&gt;-->
+<!--        &lt;!&ndash;        <mat-icon>close</mat-icon>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+<!--      </mat-form-field>-->
+<!--      <div class="error" *ngIf="isControlInvalid('userTag')">-->
+<!--        Input valid user tag, included "A-z", "-", ".", "_"-->
+<!--      </div>-->
+<!--      <br/><br/>-->
+
+<!--      <mat-form-field class="form-field">-->
+<!--        <mat-label for="userInfo">User ID</mat-label>-->
+<!--        <input matInput type="text" id="userInfo" formControlName="userInfo">-->
+<!--        &lt;!&ndash;      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">&ndash;&gt;-->
+<!--        &lt;!&ndash;        <mat-icon>close</mat-icon>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+<!--      </mat-form-field>-->
+<!--      <br/><br/>-->
+
+<!--      <button mat-button color="primary" type="submit">Push</button>-->
+<!--    </form>-->
+
+    <br/>
+    <div>
+      {{createNewPostReactiveForm.value | json}}
+    </div>
+  </div>
+</div>

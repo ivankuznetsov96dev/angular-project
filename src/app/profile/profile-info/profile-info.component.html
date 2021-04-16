@@ -1,10 +1,12 @@
   <div class="profile-info">
     <mat-card class="user-info">
-      <button mat-icon-button class="edit-info-btn">
+      <button mat-icon-button class="edit-info-btn" (click)="openDialog()">
         <mat-icon>edit</mat-icon>
       </button>
-      <h1>Alibaba Loremtest-ali</h1>
-      <h2>@TEST_Alibaba</h2>
+<!--      <h1>{{userInfo['name']}}</h1>-->
+<!--      <h2>{{userInfo['email']}}</h2>-->
+      <h1>{{userInfo.name}}</h1>
+      <h2>{{userInfo.email}}</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto assumenda autem itaque, perferendis quia quidem quod sint sunt unde.</p>
       <app-profile-info-counters></app-profile-info-counters>
     </mat-card>

@@ -1,9 +1,9 @@
 <nav>
   <button mat-icon-button>
-    <mat-icon aria-hidden="false" aria-label="Home icon">home</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Home icon" (click)="goToFeed()">home</mat-icon>
   </button>
   <button mat-icon-button>
-    <mat-icon aria-hidden="false" aria-label="Add new post">wallpaper</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Add new post" (click)="openDialog()">wallpaper</mat-icon>
   </button>
 
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -25,5 +25,5 @@
   </mat-menu>
 
 
-  <app-profile-img class="header-profile-img"></app-profile-img>
+  <app-profile-img class="header-profile-img" (click)="goToProfile()"></app-profile-img>
 </nav>

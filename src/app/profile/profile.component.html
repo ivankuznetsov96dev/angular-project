@@ -1,6 +1,80 @@
 <app-header></app-header>
 
 <div class="wrapper">
+
+<!--  <p>test</p>-->
+<!--  <p zoom [zoomSize]="'60'">test 2</p>-->
+<!--  <div *doubleContent="true">test 2 <div>kfsdmnlkjadgdjbn</div></div>-->
+
+<!--  <div class="form-group col-12">-->
+<!--    <input type="file"-->
+<!--           id="file"-->
+<!--           #userPhoto-->
+<!--           (change)="onFileSelected($event)"-->
+<!--           name="image"-->
+<!--           autocomplete="off"-->
+<!--    />-->
+<!--  </div>-->
+<!--  <img  *ngIf="imageLink" [src]="imageLink" width="500" height="600"/>-->
+<!--  <progress max="100" [value]="progress" ></progress>-->
+
+  <div>{{counter}}</div>
+
+<!--  <button mat-button color="primary" (click)="addFirebaseToken()">Create</button>-->
+<!--  <button mat-button color="primary" (click)="deleteFirebaseToken()">Delete</button>-->
+
+<!--  <button mat-button color="primary" (click)="getBooks()">getBooks</button>-->
+
+<!--  <ul class="cards">-->
+<!--    <li *ngFor="let card of counterObj; trackBy:trackFunction;">-->
+<!--      <span (click)="delTappedBaseToken(card.id)" style="cursor: pointer">{{card | json}}</span>-->
+<!--    </li>-->
+<!--  </ul>-->
+
+<!--  <div class="cards" style="display: flex; flex-wrap: wrap">-->
+<!--    <div *ngFor="let card of counterObj; trackBy:trackFunction;">-->
+<!--&lt;!&ndash;      <app-profile-post (click)="delTappedBaseToken(card.id)"></app-profile-post>&ndash;&gt;-->
+<!--      <app-profile-post [postID]="card['id']" [postImg]="card['imageLink']"></app-profile-post>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <mat-card class="form-info-changer">-->
+<!--    <h2>Change profile info</h2>-->
+<!--    <form [formGroup]="myFirstReactiveForm" (submit)="onSubmit()">-->
+<!--      <mat-form-field class="form-field">-->
+<!--        <mat-label for="name">Name</mat-label>-->
+<!--        <input matInput type="text" id="name" formControlName="name">-->
+<!--        &lt;!&ndash;      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">&ndash;&gt;-->
+<!--        &lt;!&ndash;        <mat-icon>close</mat-icon>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+<!--      </mat-form-field>-->
+<!--      <div class="error" *ngIf="isControlInvalid('name')">-->
+<!--        Имя должно состоять только из букв-->
+<!--      </div>-->
+<!--      <br/><br/>-->
+
+<!--      <mat-form-field class="form-field">-->
+<!--        <mat-label for="userTag">User ID</mat-label>-->
+<!--        <input matInput type="text" id="userTag" formControlName="userTag">-->
+<!--        &lt;!&ndash;      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">&ndash;&gt;-->
+<!--        &lt;!&ndash;        <mat-icon>close</mat-icon>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </button>&ndash;&gt;-->
+<!--      </mat-form-field>-->
+<!--      <div class="error" *ngIf="isControlInvalid('userTag')">-->
+<!--        Input valid user tag, included "A-z", "-", ".", "_"-->
+<!--      </div>-->
+<!--      <br/><br/>-->
+
+<!--      <button mat-button color="primary">Close</button>-->
+<!--      <button mat-button color="primary" type="submit">Push</button>-->
+<!--    </form>-->
+
+<!--    <br/>-->
+<!--    <div>-->
+<!--      {{myFirstReactiveForm.value | json}}-->
+<!--    </div>-->
+<!--  </mat-card>-->
+
   <app-profile-info></app-profile-info>
   <app-posts-pool></app-posts-pool>
 </div>

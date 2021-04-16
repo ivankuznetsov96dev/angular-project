@@ -1,12 +1,16 @@
 .post {
+  position: relative;
   margin: 10px 0;
   width: 293px;
   height: 293px;
   background-color: #c4c4c4;
+  background-size: cover;
   border-radius: 20px;
 
   display: flex;
-  flex-direction: column-reverse;
+  justify-content: center;
+
+  overflow:hidden;
 
 
   &:hover {
@@ -17,6 +21,9 @@
   }
 
   app-likes-comments {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     margin: 10px 0;
   }
 }

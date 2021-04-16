@@ -24,7 +24,17 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import { MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { LikesCommentsComponent } from './profile/posts-pool/profile-post/likes-comments/likes-comments.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FeedComponent } from './feed/feed.component';
+import { FeedPostComponent } from './feed/feed-post/feed-post.component';
+import {FormInfoChangerDialogComponent} from "./profile/profile-info/form-info-changer-dialog/form-info-changer-dialog.component";
+import { CreatePostComponent } from './header/icon-nav/create-post/create-post.component';
+import {ZoomDirective} from "./services/zoom.directive";
+import {DoubleContentDirective} from "./services/double-content.directive";
 
 @NgModule({
   declarations: [
@@ -39,11 +49,18 @@ import { LikesCommentsComponent } from './profile/posts-pool/profile-post/likes-
     FollowBtnComponent,
     ProfileInfoCountersComponent,
     LoginComponent,
-    LikesCommentsComponent
+    LikesCommentsComponent,
+    FeedComponent,
+    FeedPostComponent,
+    FormInfoChangerDialogComponent,
+    CreatePostComponent,
+    ZoomDirective,
+    DoubleContentDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -54,6 +71,10 @@ import { LikesCommentsComponent } from './profile/posts-pool/profile-post/likes-
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatInputModule,
+    MatDialogModule,
+    MatProgressBarModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

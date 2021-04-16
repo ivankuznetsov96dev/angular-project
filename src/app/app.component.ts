@@ -14,6 +14,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.firestore.collection('testbase').valueChanges().subscribe(value=> console.log(value))
+    // this.firestore.collection('testbase').valueChanges().subscribe(value=> console.log(value))
   }
 }
