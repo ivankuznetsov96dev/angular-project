@@ -33,8 +33,10 @@ export class ProfileInfoComponent implements OnInit {
         console.log(this.userInfo)
       })
 
-    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => console.log(value))
-    console.log(this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => console.log(value)) !== undefined)
+
+
+    // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => console.log(value))
+    // console.log(this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => console.log(value)) !== undefined)
 
     // this.crudService.getObjectByRef('users', 'nevi.kiv@gmail.com').subscribe(value => console.log(value))
   }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
-import {map, take} from 'rxjs/operators';
+import {map, take, tap} from 'rxjs/operators';
 import firebase from 'firebase';
 import DocumentReference = firebase.firestore.DocumentReference;
 import firestore = firebase.firestore;
@@ -87,4 +87,8 @@ export class CrudService {
       )
     );
   }
+
+  // public handleTest(collectionName: string, id: string): Observable<any> {
+  //   return from(this.firestoreService.collection(collectionName).doc(`${id}/user_posts`).get()).pipe(take(1));
+  // }
 }

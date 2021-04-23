@@ -2,7 +2,10 @@
   <div class="flex info">
     <button mat-icon-button (click)="checkLikesCounter()">
       <span>{{likesCounter}}</span>
-      <mat-icon>favorite</mat-icon>
+      <mat-icon class="likeBtn" [ngClass]="{
+        like: colorCounter === true,
+        default: colorCounter === false
+      }">favorite</mat-icon>
     </button>
   </div>
   <div class="flex info">

@@ -15,6 +15,7 @@ export class LikesCommentsComponent implements OnInit {
 
   public likesCounter: number;
   public postCount;
+  public colorCounter: boolean;
 
   constructor(private firestoreService: AngularFirestore, private crudService: CrudService) { }
 
@@ -35,7 +36,20 @@ export class LikesCommentsComponent implements OnInit {
       this.postCount = value['likes'];
       console.log(this.postCount);
       this.likesCounter = Object.keys(this.postCount).length;
+      this.changerBtnColor();
     });
+  }
+
+  public changerBtnColor() {
+    if (this.postCount[localStorage.getItem('userLoginID')]) {
+      console.log(this.postCount[localStorage.getItem('userLoginID')]);
+      this.colorCounter = true;
+      console.log(this.colorCounter);
+    } else {
+      console.log(this.postCount[localStorage.getItem('userLoginID')]);
+      this.colorCounter = false;
+      console.log(this.colorCounter);
+    }
   }
 
   public checkLikesCounter(): void {
@@ -55,10 +69,12 @@ export class LikesCommentsComponent implements OnInit {
       delete this.postCount[localStorage.getItem('userLoginID')];
       this.crudService.updateObjectWithUpdate('posts', this.postID, {'likes' : this.postCount});
       this.likesCounter = Object.keys(this.postCount).length;
+      this.changerBtnColor();
     } else {
       this.postCount[localStorage.getItem('userLoginID')] = localStorage.getItem('userLoginID');
       this.crudService.updateObjectWithUpdate('posts', this.postID, {'likes' : this.postCount});
       this.likesCounter = Object.keys(this.postCount).length;
+      this.changerBtnColor();
     }
 
     // if (!this.postLikes[`${localStorage.getItem('userLoginID')}`]) {

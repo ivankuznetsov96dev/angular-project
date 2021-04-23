@@ -52,6 +52,9 @@ export class ProfileComponent implements OnInit {
       if (value['user_posts'] === undefined) {
         this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': []})
       }
+      if (value['user_avatar'] === undefined) {
+        this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_avatar': ''})
+      }
     });
 
     this.getObjByLocaleUserID();
@@ -67,6 +70,8 @@ export class ProfileComponent implements OnInit {
       // console.log(value);
       // console.log(...this.counterObj);
     });
+
+
 
     this.initForm();
   }

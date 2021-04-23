@@ -31,10 +31,13 @@
       width: 200px;
       border-radius: 10px;
       border:1px solid black;
-      overflow:hidden;
+      background-size: cover;
+
       display: flex;
       justify-content: center;
-      align-items: center;
+      //align-items: center;
+
+      overflow:hidden;
     }
 
     .follow-btn {

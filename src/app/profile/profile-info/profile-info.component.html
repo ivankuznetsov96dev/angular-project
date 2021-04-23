@@ -8,11 +8,11 @@
       <h1>{{userInfo.name}}</h1>
       <h2>{{userInfo.email}}</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto assumenda autem itaque, perferendis quia quidem quod sint sunt unde.</p>
-      <app-profile-info-counters></app-profile-info-counters>
+      <app-profile-info-counters [user]="userInfo"></app-profile-info-counters>
     </mat-card>
 
     <mat-card class="img_btn">
-      <app-profile-img class="user-profile-photo"></app-profile-img>
+      <app-profile-img class="user-profile-photo" [userImg]="userInfo.picture"></app-profile-img>
       <app-follow-btn class="follow-btn"></app-follow-btn>
     </mat-card>
   </div>

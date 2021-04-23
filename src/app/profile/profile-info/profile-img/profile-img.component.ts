@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-profile-img',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileImgComponent implements OnInit {
 
   constructor() { }
+
+  @Input() userImg: string;
 
   ngOnInit(): void {
   }

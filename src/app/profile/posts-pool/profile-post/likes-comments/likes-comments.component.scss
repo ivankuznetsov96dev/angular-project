@@ -5,3 +5,13 @@
     margin-left: 10px;
   }
 }
+
+.likeBtn {
+  &.like {
+    color: red;
+  }
+
+  &.default {
+    color: #272727;
+  }
+}

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from "../../../services/interfaces/user.model";
+import {CrudService} from "../../../services/crud.service";
 
 @Component({
   selector: 'app-profile-info-counters',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileInfoCountersComponent implements OnInit {
 
-  constructor() { }
+  @Input() user: User;
+  public publicationsCounter: number;
+
+  constructor(private crudService: CrudService) { }
 
   ngOnInit(): void {
+    // this.crudService.getObjectByRef('users', this.user.email).subscribe(value => {
+    //   this.publicationsCounter = value['user_posts'].length;
+    // });
+    this.publicationsCounter = this.user.user_posts.length;
   }
 
 }

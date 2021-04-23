@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
     //   console.log(value);
     // });
 
+    console.table([['23.04.2021', 'add', 'Github commit link']]);
+
     (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
     (this.firestore.collection('users').doc('kivfox.kuznetsov@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
 

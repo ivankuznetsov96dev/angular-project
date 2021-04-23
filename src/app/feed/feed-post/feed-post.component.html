@@ -1,8 +1,10 @@
 <mat-card class="example-card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{card.userPostCreater}}</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ postCreaterAvatar +')'"></div>
+<!--    <mat-card-title>{{card.userPostCreater}}</mat-card-title>-->
+<!--    <mat-card-subtitle>{{card.userPostCreater}}</mat-card-subtitle>-->
+    <mat-card-title>{{postCreater}}</mat-card-title>
+    <mat-card-subtitle>{{postCreaterID}}</mat-card-subtitle>
   </mat-card-header>
   <div>{{card.id}}</div>
   <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}">
