@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 import firebase from 'firebase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoreService {
-
   public user$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
 
   private userData: firebase.User;
@@ -22,5 +21,5 @@ export class StoreService {
     }
   }
 
-  constructor() { }
+  constructor() {}
 }

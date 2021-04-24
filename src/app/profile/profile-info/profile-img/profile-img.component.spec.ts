@@ -8,9 +8,8 @@ describe('ProfileImgComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileImgComponent ]
-    })
-    .compileComponents();
+      declarations: [ProfileImgComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

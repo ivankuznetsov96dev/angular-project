@@ -1,17 +1,14 @@
-import {Directive, ElementRef, HostListener, Input, OnInit} from "@angular/core";
-
+import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[zoom]'
+  selector: '[zoom]',
 })
-
-export class ZoomDirective implements OnInit{
-
+export class ZoomDirective implements OnInit {
   @Input('zoomSize') size: string;
 
   @HostListener('mouseover')
   public onMouseOver() {
-    this.elementDirective.nativeElement.style.fontSize = `${this.size+10}px`;
+    this.elementDirective.nativeElement.style.fontSize = `${this.size + 10}px`;
   }
 
   @HostListener('mouseout')
@@ -19,9 +16,9 @@ export class ZoomDirective implements OnInit{
     this.elementDirective.nativeElement.style.fontSize = `${this.size}px`;
   }
 
-  private  elementDirective: ElementRef;
+  private elementDirective: ElementRef;
 
-  constructor(private  element: ElementRef) {
+  constructor(private element: ElementRef) {
     this.elementDirective = element;
   }
 

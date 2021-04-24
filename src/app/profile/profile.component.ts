@@ -1,25 +1,28 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {Router} from "@angular/router";
-import {AuthService} from "../services/auth/auth.service";
-import {combineLatest, Subject, Subscription} from "rxjs";
-import {CrudService} from "../services/crud.service";
-import {map, switchMap, takeWhile, tap} from "rxjs/operators";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UploadService} from "../services/upload.service";
-import {StorageService} from "../services/storage.service";
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { combineLatest, Subject, Subscription } from 'rxjs';
+import { map, switchMap, takeWhile, tap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CrudService } from '../services/crud.service';
+import { AuthService } from '../services/auth/auth.service';
+import { UploadService } from '../services/upload.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-
   myFirstReactiveForm: FormGroup;
+
   public progress;
+
   public imageLink;
+
   public test;
+
   public userCount;
 
   constructor(
@@ -30,13 +33,13 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private uploadService: UploadService,
     private storageService: StorageService,
-  ) { }
+  ) {}
 
   // public inputSubject: Subject<any> = new Subject<any>();
   // public subscriptions: Subscription[] = [];
 
-
   public counterObj;
+
   public counter;
 
   ngOnInit(): void {
@@ -48,30 +51,33 @@ export class ProfileComponent implements OnInit {
     // this.counter = this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe();
     // console.log(this.counter)
 
-    this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
-      if (value['user_posts'] === undefined) {
-        this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_posts': []})
-      }
-      if (value['user_avatar'] === undefined) {
-        this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {'user_avatar': ''})
-      }
-    });
+    this.crudService
+      .getObjectByRef('users', localStorage.getItem('userLoginID'))
+      .subscribe((value) => {
+        if (value.user_posts === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            user_posts: [],
+          });
+        }
+        if (value.user_avatar === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            user_avatar: '',
+          });
+        }
+      });
 
     this.getObjByLocaleUserID();
 
-
-    this.crudService.handleData('posts').subscribe(data => this.storageService.books = data)
+    // this.crudService.handleData('posts').subscribe(data => this.storageService.books = data);
 
     // this.storageService.books$.subscribe(value => console.log(value))
-    this.storageService.books$.subscribe();
+    // this.storageService.books$.subscribe();
 
-    this.crudService.handleData('posts').subscribe(value => {
+    this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
       // console.log(value);
       // console.log(...this.counterObj);
     });
-
-
 
     this.initForm();
   }
@@ -80,10 +86,13 @@ export class ProfileComponent implements OnInit {
     console.log(this.storageService.books);
   }
 
-
   public addFirebaseToken(): void {
-    this.crudService.createEntity('picture', {img: 'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg'})
-      .subscribe(value => console.log(value));
+    this.crudService
+      .createEntity('picture', {
+        img:
+          'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg',
+      })
+      .subscribe((value) => console.log(value));
   }
 
   public deleteFirebaseToken(): void {
@@ -94,18 +103,16 @@ export class ProfileComponent implements OnInit {
     //   )
     //   .subscribe();
 
-
-      // .pipe(
-      // tap(value => console.log(value)),
-      // switchMap(value => {
-      //   return this.crudService.updateObject('picture', value, {'name': 'test2', 'sur': 'test3'}).pipe(map(() => value))
-      // }),
-      // switchMap(value => this.crudService.deleteObject('picture', value))
+    // .pipe(
+    // tap(value => console.log(value)),
+    // switchMap(value => {
+    //   return this.crudService.updateObject('picture', value, {'name': 'test2', 'sur': 'test3'}).pipe(map(() => value))
+    // }),
+    // switchMap(value => this.crudService.deleteObject('picture', value))
 
     // this.crudService.handleData('picture').subscribe(value => console.log(value));
 
     this.crudService.deleteObject('posts', this.counterObj[this.counterObj.length - 1].id);
-
   }
 
   public delTappedBaseToken(id): void {
@@ -113,20 +120,19 @@ export class ProfileComponent implements OnInit {
   }
 
   public getObjByLocaleUserID(): void {
-    this.counter = this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID'))
-      .subscribe(value => console.log(value))
+    this.counter = this.crudService
+      .getObjectByRef('users', localStorage.getItem('userLoginID'))
+      .subscribe((value) => console.log(value));
   }
 
   public trackFunction(index, item): string {
     return item.id;
   }
 
-
   onSubmit() {
-    const controls = this.myFirstReactiveForm.controls;
+    const { controls } = this.myFirstReactiveForm;
     if (this.myFirstReactiveForm.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
       return;
     }
     console.log(this.myFirstReactiveForm.value);
@@ -140,32 +146,22 @@ export class ProfileComponent implements OnInit {
 
   private initForm() {
     this.myFirstReactiveForm = this.fb.group({
-      name: ['', [
-        Validators.required,
-        Validators.pattern(/[А-яA-z]/)
-      ]
-      ],
-      userTag: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-z _.-]+$/)
-      ]
-      ]
+      name: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
+      userTag: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
     });
   }
-
 
   public onFileSelected(event): void {
     const file = event.target.files[0];
     combineLatest(this.uploadService.uploadFile('test', file))
-      .pipe(tap(([percent, link]) => {
+      .pipe(
+        tap(([percent, link]) => {
           this.progress = percent.toString();
           console.log(link);
           // this.imageLink = link;
-        }
-        ),
-        takeWhile(([percent, link]) => !link))
+        }),
+        takeWhile(([percent, link]) => !link),
+      )
       .subscribe();
-
   }
-
 }

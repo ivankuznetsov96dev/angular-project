@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFirestore} from "@angular/fire/firestore";
-import {Router} from "@angular/router";
-import {AuthService} from "../services/auth/auth.service";
-import {CrudService} from "../services/crud.service";
-import {map, switchMap, tap} from "rxjs/operators";
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { AuthService } from '../services/auth/auth.service';
+import { CrudService } from '../services/crud.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   public test;
 
   constructor(
@@ -20,7 +18,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private crudService: CrudService,
-  ) { }
+  ) {}
 
   public eventCounter: string[] = ['container', 'right-panel-active'];
 
@@ -37,10 +35,16 @@ export class LoginComponent implements OnInit {
     //   console.log(value);
     // });
 
-    console.table([['23.04.2021', 'add', 'Github commit link']]);
+    console.table([
+      [
+        '23.04.2021',
+        'add prifile avatar view. add post creater info in feed cards. add like btn color changer',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/989553fa45a042a9bd1678eb71b93573176dce06',
+      ],
+    ]);
 
-    (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
-    (this.firestore.collection('users').doc('kivfox.kuznetsov@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
+    // (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
+    // (this.firestore.collection('users').doc('kivfox.kuznetsov@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
 
     // this.firestore.collection('users').doc('nevi.kiv@gmail.com').get().subscribe(value => console.log(value.exists))
 
@@ -52,12 +56,11 @@ export class LoginComponent implements OnInit {
     // } else {
     //   console.log('this is false')
     // }
-
   }
 
   public goTo(): void {
     this.authService.googleSign().subscribe(() => {
-      this.router.navigate(['/profile'])
+      this.router.navigate(['/profile']);
     });
     // this.authService.googleSign();
     // this.router.navigate(['/profile']);
@@ -71,5 +74,4 @@ export class LoginComponent implements OnInit {
     //   // switchMap(value => this.crudService.deleteObject('testbase', value))
     // ).subscribe();
   }
-
 }

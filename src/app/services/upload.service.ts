@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
-import {AngularFireStorage, AngularFireUploadTask} from "@angular/fire/storage";
-import {from, Observable} from "rxjs";
-import {startWith, switchMap, take} from "rxjs/operators";
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { from, Observable } from 'rxjs';
+import { startWith, switchMap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UploadService {
+  constructor(private storage: AngularFireStorage) {}
 
-  constructor(private storage: AngularFireStorage) { }
-
-  public uploadFile(folder: string, file: File): [percent: Observable<number>, link: Observable<any>] {
+  public uploadFile(
+    folder: string,
+    file: File,
+  ): [percent: Observable<number>, link: Observable<any>] {
     // const {name} = file;
-    const name: string = file.name;
-    const filePath: string = `${folder}/${new Date().getTime()}_${name}`
+    const { name } = file;
+    const filePath = `${folder}/${new Date().getTime()}_${name}`;
     const task: AngularFireUploadTask = this.storage.upload(filePath, file);
     return [task.percentageChanges(), this.getLink(task, filePath).pipe(startWith(null))];
   }

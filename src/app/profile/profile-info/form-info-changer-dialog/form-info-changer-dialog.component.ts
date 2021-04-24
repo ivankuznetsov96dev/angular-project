@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-info-changer-dialog',
   templateUrl: './form-info-changer-dialog.component.html',
-  styleUrls: ['./form-info-changer-dialog.component.scss']
+  styleUrls: ['./form-info-changer-dialog.component.scss'],
 })
 export class FormInfoChangerDialogComponent implements OnInit {
-
   myFirstReactiveForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public dialog: MatDialog) { }
+  constructor(private fb: FormBuilder, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -22,10 +21,9 @@ export class FormInfoChangerDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    const controls = this.myFirstReactiveForm.controls;
+    const { controls } = this.myFirstReactiveForm;
     if (this.myFirstReactiveForm.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
       return;
     }
     console.log(this.myFirstReactiveForm.value);
@@ -39,21 +37,14 @@ export class FormInfoChangerDialogComponent implements OnInit {
 
   private initForm() {
     this.myFirstReactiveForm = this.fb.group({
-      name: ['', [
-        Validators.required,
-        Validators.pattern(/[А-яA-z]/)
-      ]
-      ],
-      userTag: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-z _.-]+$/)
-      ]
-      ],
-      userInfo: ['', [
-        // Validators.pattern(/^[A-z _.-]+$/)
-      ]
+      name: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
+      userTag: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
+      userInfo: [
+        '',
+        [
+          // Validators.pattern(/^[A-z _.-]+$/)
+        ],
       ],
     });
   }
-
 }

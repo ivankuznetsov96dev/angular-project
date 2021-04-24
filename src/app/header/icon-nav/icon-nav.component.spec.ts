@@ -8,9 +8,8 @@ describe('IconNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IconNavComponent ]
-    })
-    .compileComponents();
+      declarations: [IconNavComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

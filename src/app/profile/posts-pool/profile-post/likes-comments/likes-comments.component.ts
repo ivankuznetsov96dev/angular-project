@@ -1,23 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CrudService} from "../../../../services/crud.service";
-import {AngularFirestore} from "@angular/fire/firestore";
-import {take} from "rxjs/operators";
+import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { take } from 'rxjs/operators';
+import { CrudService } from '../../../../services/crud.service';
 
 @Component({
   selector: 'app-likes-comments',
   templateUrl: './likes-comments.component.html',
-  styleUrls: ['./likes-comments.component.scss']
+  styleUrls: ['./likes-comments.component.scss'],
 })
 export class LikesCommentsComponent implements OnInit {
-
   @Input() postLikes;
+
   @Input() postID;
 
   public likesCounter: number;
+
   public postCount;
+
   public colorCounter: boolean;
 
-  constructor(private firestoreService: AngularFirestore, private crudService: CrudService) { }
+  constructor(private firestoreService: AngularFirestore, private crudService: CrudService) {}
 
   ngOnInit(): void {
     // console.log(this.postLikes)
@@ -27,13 +29,12 @@ export class LikesCommentsComponent implements OnInit {
     this.getLikes();
   }
 
-
   // localStorage.getItem('userLoginID')
 
   public getLikes(): void {
-    this.crudService.getObjectByRef('posts', this.postID).subscribe(value => {
+    this.crudService.getObjectByRef('posts', this.postID).subscribe((value) => {
       // console.log(value)
-      this.postCount = value['likes'];
+      this.postCount = value.likes;
       console.log(this.postCount);
       this.likesCounter = Object.keys(this.postCount).length;
       this.changerBtnColor();
@@ -64,15 +65,14 @@ export class LikesCommentsComponent implements OnInit {
     //   console.log(this.postCount);
     // });
 
-
     if (this.postCount[localStorage.getItem('userLoginID')]) {
       delete this.postCount[localStorage.getItem('userLoginID')];
-      this.crudService.updateObjectWithUpdate('posts', this.postID, {'likes' : this.postCount});
+      this.crudService.updateObjectWithUpdate('posts', this.postID, { likes: this.postCount });
       this.likesCounter = Object.keys(this.postCount).length;
       this.changerBtnColor();
     } else {
       this.postCount[localStorage.getItem('userLoginID')] = localStorage.getItem('userLoginID');
-      this.crudService.updateObjectWithUpdate('posts', this.postID, {'likes' : this.postCount});
+      this.crudService.updateObjectWithUpdate('posts', this.postID, { likes: this.postCount });
       this.likesCounter = Object.keys(this.postCount).length;
       this.changerBtnColor();
     }
@@ -84,8 +84,6 @@ export class LikesCommentsComponent implements OnInit {
     //   this.likesCounter = Object.keys(this.postLikes).length;
     // }
 
-
-
     // this.firestoreService.collection('posts').doc(this.postID).collection('likes')
     //   .get().pipe(take(1))
     //   .subscribe(value => {
@@ -93,5 +91,4 @@ export class LikesCommentsComponent implements OnInit {
     //     console.log(this.postCount);
     //   })
   }
-
 }

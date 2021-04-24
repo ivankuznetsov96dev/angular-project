@@ -6,23 +6,21 @@ import {
   Input,
   OnInit,
   TemplateRef,
-  ViewContainerRef
-} from "@angular/core";
-
+  ViewContainerRef,
+} from '@angular/core';
 
 @Directive({
-  selector: '[doubleContent]'
+  selector: '[doubleContent]',
 })
-
-export class DoubleContentDirective implements AfterViewInit{
-
-  @Input() doubleContent: boolean = false;
+export class DoubleContentDirective implements AfterViewInit {
+  @Input() doubleContent = false;
 
   private elementDirective: ElementRef;
-  public isContentWasDuplication: boolean = false;
 
-  constructor(private  tml: TemplateRef<any>, private  vc: ViewContainerRef) {
-   this.vc.createEmbeddedView(tml);
+  public isContentWasDuplication = false;
+
+  constructor(private tml: TemplateRef<any>, private vc: ViewContainerRef) {
+    this.vc.createEmbeddedView(tml);
   }
 
   ngAfterViewInit(): void {
@@ -33,6 +31,4 @@ export class DoubleContentDirective implements AfterViewInit{
       }
     }
   }
-
-
 }

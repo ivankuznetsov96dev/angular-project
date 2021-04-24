@@ -1,21 +1,20 @@
-import {Injectable, Output} from '@angular/core';
-import {async, from, Observable, of} from "rxjs";
-import firebase from "firebase";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {map, switchMap, take, tap} from "rxjs/operators";
+import { Injectable, Output } from '@angular/core';
+import { async, from, Observable, of } from 'rxjs';
+import firebase from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { CrudService } from '../crud.service';
+import { StoreService } from '../store.service';
 import auth = firebase.auth;
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
-import {CrudService} from "../crud.service";
-import {StoreService} from "../store.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   public flag: boolean;
 
-  public user$: Observable<firebase.User | null>
+  public user$: Observable<firebase.User | null>;
   // public user$: Observable<any>;
 
   constructor(
@@ -53,7 +52,6 @@ export class AuthService {
     //     }),
     //   )
     //   .subscribe();
-
   }
 
   // public googleSign(): Observable<auth.UserCredential> {
@@ -70,10 +68,11 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     return from(this.angAuthService.signInWithPopup(provider)).pipe(
       tap((authUser: auth.UserCredential) => {
-
-        this.firestoreService.collection('users').doc(`${authUser.additionalUserInfo.profile['email']}`).set(authUser.additionalUserInfo.profile, {merge: true});
-        localStorage.setItem('userLoginID', authUser.additionalUserInfo.profile['email']);
-
+        this.firestoreService
+          .collection('users')
+          .doc(`${authUser.additionalUserInfo.profile.email}`)
+          .set(authUser.additionalUserInfo.profile, { merge: true });
+        localStorage.setItem('userLoginID', authUser.additionalUserInfo.profile.email);
 
         // this.firestoreService.doc(`users/${authUser.additionalUserInfo.profile['email']}`).update(authUser.additionalUserInfo.profile)
         //   .then(()=> {
@@ -117,7 +116,6 @@ export class AuthService {
         //     localStorage.setItem('userLoginID', authUser.additionalUserInfo.profile['email']);
         // }
         console.log(localStorage.getItem('userLoginID'));
-
       }),
       take(1),
     );
@@ -136,7 +134,6 @@ export class AuthService {
   // private updateUserData(user): void {
   //    // this.crudServiceService.updateObject('users', user.uid, user);
   // }
-
 
   // async googleSign() {
   //   const provider = new auth.GoogleAuthProvider();
