@@ -1,1 +1,8 @@
-<button class="follow-btn">Follow</button>
+<button class="follow_btn" (click)="pressFollowBtn()" [ngClass]="{
+  'sub': btnFlag === 'signed',
+  'follow': btnFlag === 'follow'
+}">{{btnFlag}}</button>
+
+<!--<button mat-raised-button class="follow_btn" (click)="pressFollowBtn()" [ngClass]="{-->
+<!--  -->
+<!--}">{{btnFlag}}</button>-->

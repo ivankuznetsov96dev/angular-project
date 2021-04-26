@@ -5,12 +5,19 @@ import { map, take, tap } from 'rxjs/operators';
 import firebase from 'firebase';
 import firestore = firebase.firestore;
 import DocumentReference = firebase.firestore.DocumentReference;
+import {HttpClient} from "@angular/common/http";
+import User = firebase.User;
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrudService {
   constructor(private firestoreService: AngularFirestore) {}
+
+  // getUser(name: string): Observable<User> {
+  //   const url = `https://api.github.com/users/${name}`;
+  //   return this.http.get<User>(url);
+  // }
 
   // public getData(collectionName: string): Observable<any> {
   //   this.firestoreService.collection(collectionName).snapshotChanges().pipe(

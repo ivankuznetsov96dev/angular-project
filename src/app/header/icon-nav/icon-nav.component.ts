@@ -15,6 +15,8 @@ import { User } from '../../services/interfaces/user.model';
 export class IconNavComponent implements OnInit {
   public userInfo: User;
 
+  public lang = 'en';
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -33,7 +35,7 @@ export class IconNavComponent implements OnInit {
 
   public logOut(): void {
     this.authService.signOut().subscribe(() => this.router.navigate(['/login']));
-    localStorage.clear();
+    // localStorage.clear();
   }
 
   public goToFeed(): void {
@@ -41,7 +43,9 @@ export class IconNavComponent implements OnInit {
   }
 
   public goToProfile(): void {
+    localStorage.removeItem('currentUserID');
     this.router.navigate(['/profile']);
+    window.location.reload();
   }
 
   public openDialog(): void {

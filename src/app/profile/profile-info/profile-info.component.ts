@@ -25,8 +25,14 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const postsCollections =
+      !localStorage.getItem('currentUserID') ||
+      localStorage.getItem('currentUserID') === 'undefined'
+        ? localStorage.getItem('userLoginID')
+        : localStorage.getItem('currentUserID');
+
     this.crudService
-      .getObjectByRef('users', localStorage.getItem('userLoginID'))
+      .getObjectByRef('users', postsCollections)
       .subscribe((value) => {
         this.userInfo = value;
         console.log(this.userInfo);

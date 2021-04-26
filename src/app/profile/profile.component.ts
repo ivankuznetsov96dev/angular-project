@@ -64,6 +64,11 @@ export class ProfileComponent implements OnInit {
             user_avatar: '',
           });
         }
+        if (value.user_subs === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            user_subs: {},
+          });
+        }
       });
 
     this.getObjByLocaleUserID();

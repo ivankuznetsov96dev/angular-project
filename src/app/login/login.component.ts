@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { CrudService } from '../services/crud.service';
 
@@ -40,6 +40,11 @@ export class LoginComponent implements OnInit {
         '23.04.2021',
         'add prifile avatar view. add post creater info in feed cards. add like btn color changer',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/989553fa45a042a9bd1678eb71b93573176dce06',
+      ],
+      [
+        '24.04.2021',
+        'add eslint statements. fixed code style in app',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/165d58e281df1cbd5dae130fa1a966957b88035e',
       ],
     ]);
 

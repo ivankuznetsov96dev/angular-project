@@ -68,11 +68,13 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     return from(this.angAuthService.signInWithPopup(provider)).pipe(
       tap((authUser: auth.UserCredential) => {
+        // console.log(authUser);
+        // .doc(`${authUser.additionalUserInfo.profile.email}`)
         this.firestoreService
           .collection('users')
-          .doc(`${authUser.additionalUserInfo.profile.email}`)
+          .doc(`${authUser.additionalUserInfo.profile['email']}`)
           .set(authUser.additionalUserInfo.profile, { merge: true });
-        localStorage.setItem('userLoginID', authUser.additionalUserInfo.profile.email);
+        localStorage.setItem('userLoginID', authUser.additionalUserInfo.profile['email']);
 
         // this.firestoreService.doc(`users/${authUser.additionalUserInfo.profile['email']}`).update(authUser.additionalUserInfo.profile)
         //   .then(()=> {
@@ -142,6 +144,7 @@ export class AuthService {
   // }
 
   public signOut(): Observable<void> {
+    localStorage.clear();
     return from(this.angAuthService.signOut()).pipe(take(1));
   }
 

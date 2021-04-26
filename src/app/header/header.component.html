@@ -2,7 +2,8 @@
   <div class="wrapper">
     <nav>
       <span class="logo">InstaClone</span>
-      <input type="text" class="input">
+      <input type="text" class="input" [(ngModel)]="searcher" (keydown.enter)="search()" placeholder="search...">
+      <span>{{searcher}}</span>
       <app-icon-nav></app-icon-nav>
     </nav>
   </div>

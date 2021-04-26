@@ -49,8 +49,28 @@ export class PostsPoolComponent implements OnInit, DoCheck {
   }
 
   public filtrPipe() {
+    // let postsCollections: string;
+    // if (
+    //   !localStorage.getItem('currentUserID') ||
+    //   localStorage.getItem('currentUserID') === 'undefined'
+    // ) {
+    //   postsCollections = localStorage.getItem('userLoginID');
+    // } else {
+    //   postsCollections = localStorage.getItem('userLoginID');
+    //   localStorage.removeItem('currentUserID');
+    // }
+
+    const postsCollections =
+      !localStorage.getItem('currentUserID') ||
+      localStorage.getItem('currentUserID') === 'undefined'
+        ? localStorage.getItem('userLoginID')
+        : localStorage.getItem('currentUserID');
+
+    // localStorage.removeItem('currentUserID');
+
+    console.log(postsCollections);
     this.crudService
-      .getObjectByRef('users', localStorage.getItem('userLoginID'))
+      .getObjectByRef('users', postsCollections)
       .subscribe((value) => {
         this.counterUserPosts = value.user_posts;
         console.log(this.counterUserPosts);
