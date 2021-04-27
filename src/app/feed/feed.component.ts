@@ -2,6 +2,8 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
+import { element } from 'protractor';
+import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { CrudService } from '../services/crud.service';
 import { UploadService } from '../services/upload.service';
@@ -38,6 +40,10 @@ export class FeedComponent implements OnInit, DoCheck {
   public counterObj;
 
   public counterUserPosts;
+  public userFeed;
+  public userSubsArray;
+
+  public subsPosts = [];
 
   public filtredObj: Post[];
 
@@ -47,7 +53,7 @@ export class FeedComponent implements OnInit, DoCheck {
     //   console.log(this.counterUserPosts);
     // });
 
-    this.filtrPipe();
+    // this.filtrPipe();
 
     this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
@@ -67,10 +73,30 @@ export class FeedComponent implements OnInit, DoCheck {
       .subscribe((value) => {
         this.counterUserPosts = value.user_posts;
         console.log(this.counterUserPosts);
+        this.userSubsArray = Object.keys(value.user_subs);
+        console.log(this.userSubsArray);
+        this.concatPostsArray();
       });
+
+    // this.userSubsArray.map((element: string) => {
+    //   this.crudService.getObjectByRef('users', element).subscribe((value) => {
+    //     console.log(value.user_posts);
+    //   });
+    // });
+  }
+
+  public concatPostsArray() {
+    this.userSubsArray.forEach((user) => {
+      this.crudService.getObjectByRef('users', user).subscribe((value1) => {
+        console.log(user);
+        this.subsPosts = this.subsPosts.concat(value1.user_posts);
+        // console.log(this.subsPosts);
+      });
+    });
   }
 
   public postsFilter() {
+    this.counterUserPosts = this.counterUserPosts.concat(this.subsPosts);
     this.filtredObj = this.counterObj.filter((element) =>
       this.counterUserPosts.includes(element.id),
     );

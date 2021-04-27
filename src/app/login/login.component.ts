@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit {
         'add eslint statements. fixed code style in app',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/165d58e281df1cbd5dae130fa1a966957b88035e',
       ],
+      [
+        '26-27.04.2021',
+        'implements users subs. add user searcher (crutch). add new css properties for header and profile posts',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/65c3553284610aa43d01ebea7f51c9c4e38f94f9',
+      ],
     ]);
 
     // (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));

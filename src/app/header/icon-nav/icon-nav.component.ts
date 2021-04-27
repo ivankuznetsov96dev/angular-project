@@ -44,8 +44,25 @@ export class IconNavComponent implements OnInit {
 
   public goToProfile(): void {
     localStorage.removeItem('currentUserID');
-    this.router.navigate(['/profile']);
-    window.location.reload();
+    console.log(this.router.url);
+
+    if (this.router.url === '/profile') {
+      window.location.reload();
+    } else {
+      this.router.navigate(['/profile']);
+    }
+
+    // const count = window.location.href.split('/');
+    // if (count[count.length - 1] === 'profile') {
+    //   window.location.reload();
+    // } else {
+    //   this.router.navigate(['/profile']);
+    // }
+
+    // localStorage.removeItem('currentUserID');
+    // this.router.navigate(['/profile']);
+    // window.location.reload();
+    // console.log(count[count.length - 1]);
   }
 
   public openDialog(): void {

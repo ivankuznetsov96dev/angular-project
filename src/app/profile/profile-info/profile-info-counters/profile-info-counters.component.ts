@@ -12,6 +12,8 @@ export class ProfileInfoCountersComponent implements OnInit {
 
   public publicationsCounter: number;
 
+  public subsCounter: number;
+
   constructor(private crudService: CrudService) {}
 
   ngOnInit(): void {
@@ -19,5 +21,6 @@ export class ProfileInfoCountersComponent implements OnInit {
     //   this.publicationsCounter = value['user_posts'].length;
     // });
     this.publicationsCounter = this.user.user_posts.length;
+    this.subsCounter = Object.keys(this.user.user_subs).length;
   }
 }

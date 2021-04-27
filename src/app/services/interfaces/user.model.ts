@@ -9,4 +9,5 @@ export interface User {
   picture: string;
   verified_email?: boolean;
   user_posts?: string[];
+  user_subs?: {};
 }
