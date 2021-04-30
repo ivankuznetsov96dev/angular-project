@@ -59,6 +59,13 @@ export class CrudService {
     );
   }
 
+  public getTest(link: string): Observable<any> {
+    return from(this.firestoreService.doc(link).get()).pipe(
+      map((value) => value.data()),
+      take(1),
+    );
+  }
+
   // public updateMapObject(collectionName: string, id: string, coll: string): Observable<any> {
   //   return from(this.firestoreService.collection(collectionName).doc(`${id}/${coll}`).get()).pipe(map(value => value.data()), take(1));
   // }
@@ -74,7 +81,8 @@ export class CrudService {
     return this.firestoreService
       .collection(collectionName, (ref) => {
         const query: firestore.Query = ref;
-        return query.where('name', '==', 'test').where('id', '==', '123213');
+        // return query.where('name', '==', 'test').where('id', '==', '123213');
+        return query.where('id', '==', '111070526484147585943');
       })
       .snapshotChanges()
       .pipe(
@@ -104,7 +112,33 @@ export class CrudService {
       );
   }
 
-  // public handleTest(collectionName: string, id: string): Observable<any> {
-  //   return from(this.firestoreService.collection(collectionName).doc(`${id}/user_posts`).get()).pipe(take(1));
+  public getHandleData<T>(collectionName: string, id): Observable<T[]> {
+    return this.firestoreService
+      .collection(collectionName, (ref) => {
+        const query: firestore.Query = ref;
+        // return query.where('name', '==', 'test').where('id', '==', '123213');
+        return query.where('id', '==', id);
+      })
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((reference) => {
+            const data: any = reference.payload.doc.data();
+            const { id } = reference.payload.doc;
+            return { id, ...data } as T;
+          }),
+        ),
+      );
+  }
+
+  // public handleData<T>(collectionName: string, id: string): Observable<T[]> {
+  //   return this.firestoreService
+  //     .collection(collectionName)
+  //     .doc(id).valueChanges().pipe(
+  //       map(value => {
+  //         value.get();
+  //       })
+  //     )
+  //
   // }
 }

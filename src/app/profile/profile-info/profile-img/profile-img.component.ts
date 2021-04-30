@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../../dialog/dialog.component';
 
 @Component({
   selector: 'app-profile-img',
@@ -8,7 +10,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProfileImgComponent implements OnInit {
   @Input() userImg: string;
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
+
+  public openChangeAvatarDialog(): void {
+    this.dialog.open(DialogComponent);
+  }
 
   ngOnInit(): void {}
 }

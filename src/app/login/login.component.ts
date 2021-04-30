@@ -51,7 +51,15 @@ export class LoginComponent implements OnInit {
         'implements users subs. add user searcher (crutch). add new css properties for header and profile posts',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/65c3553284610aa43d01ebea7f51c9c4e38f94f9',
       ],
+      [
+        '27.04.2021',
+        'update feed filter(feed includ user and subs posts). fixed navigate bag',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/2c2854bfe3ad6e4ad9913ef6f80fe806f0e6bb8f',
+      ],
     ]);
+
+    // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));
+    // this.crudService.getTest('/users/ivan.kuznetsov.dev@gmail.com').subscribe(value => console.log(value));
 
     // (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
     // (this.firestore.collection('users').doc('kivfox.kuznetsov@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));

@@ -36,6 +36,7 @@ import { CreatePostComponent } from './header/icon-nav/create-post/create-post.c
 import { ZoomDirective } from './services/zoom.directive';
 import { DoubleContentDirective } from './services/double-content.directive';
 import { DialogComponent } from './dialog/dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,12 @@ import { DialogComponent } from './dialog/dialog.component';
     MatDialogModule,
     MatProgressBarModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

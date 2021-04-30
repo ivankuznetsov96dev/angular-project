@@ -19,6 +19,8 @@ export class LikesCommentsComponent implements OnInit {
 
   public colorCounter: boolean;
 
+  public test;
+
   constructor(private firestoreService: AngularFirestore, private crudService: CrudService) {}
 
   ngOnInit(): void {
@@ -26,7 +28,19 @@ export class LikesCommentsComponent implements OnInit {
     // this.likesCounter = Object.keys(this.postLikes).length;
     // console.log(this.likesCounter)
 
-    this.getLikes();
+    // this.test = this.firestoreService.collection('posts').doc(this.postID).valueChanges();
+    // this.test.subscribe((value) => console.log(value));
+
+    // this.crudService.getHandleData('posts', this.postID).subscribe((value) => {
+    //   this.test = Object.keys(value[0]['likes']).length;
+    //   console.log(this.test);
+    // });
+
+    this.crudService.handleData('posts').subscribe(() => {
+      this.getLikes();
+    });
+
+    // this.getLikes();
   }
 
   // localStorage.getItem('userLoginID')

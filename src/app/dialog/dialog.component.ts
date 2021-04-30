@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map, take } from 'rxjs/operators';
+import {CrudService} from "../services/crud.service";
 
 @Component({
   selector: 'app-dialog',
@@ -6,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  constructor() {}
+  public test;
 
-  ngOnInit(): void {}
+  constructor(private crud: CrudService) {}
+
+  ngOnInit(): void {
+
+  }
 }
