@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { CrudService } from '../../services/crud.service';
 import { UploadService } from '../../services/upload.service';
 import { StorageService } from '../../services/storage.service';
+import { Post } from '../../services/interfaces/post.model';
 
 @Component({
   selector: 'app-posts-pool',
@@ -15,9 +16,11 @@ import { StorageService } from '../../services/storage.service';
 export class PostsPoolComponent implements OnInit, DoCheck {
   public counterObj;
 
+  public profileStatus: boolean;
+
   public counterUserPosts;
 
-  public filtredObj;
+  public filtredObj: Post[];
 
   constructor(
     private router: Router,
@@ -69,12 +72,15 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     // localStorage.removeItem('currentUserID');
 
     console.log(postsCollections);
-    this.crudService
-      .getObjectByRef('users', postsCollections)
-      .subscribe((value) => {
-        this.counterUserPosts = value.user_posts;
-        console.log(this.counterUserPosts);
-      });
+    this.crudService.getObjectByRef('users', postsCollections).subscribe((value) => {
+      if (postsCollections === localStorage.getItem('currentUserID')) {
+        this.profileStatus = value.profile_status;
+      } else {
+        this.profileStatus = true;
+      }
+      this.counterUserPosts = value.user_posts;
+      console.log(this.counterUserPosts);
+    });
   }
 
   public postsFilter() {

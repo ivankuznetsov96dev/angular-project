@@ -13,7 +13,7 @@
     </mat-card>
 
     <mat-card class="img_btn">
-      <app-profile-img class="user-profile-photo" [userImg]="userInfo.picture"></app-profile-img>
+      <app-profile-img class="user-profile-photo" [userImg]="userInfo.picture" (click)="openChangeAvatarDialog()"></app-profile-img>
       <app-follow-btn class="follow-btn" [user]="userInfo"></app-follow-btn>
     </mat-card>
   </div>

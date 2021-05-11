@@ -56,6 +56,11 @@ export class LoginComponent implements OnInit {
         'update feed filter(feed includ user and subs posts). fixed navigate bag',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/2c2854bfe3ad6e4ad9913ef6f80fe806f0e6bb8f',
       ],
+      [
+        '30.04.2021',
+        'fixed likes view bag',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/e166db06f986d22b03c9d49431855715aa82272b',
+      ],
     ]);
 
     // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));

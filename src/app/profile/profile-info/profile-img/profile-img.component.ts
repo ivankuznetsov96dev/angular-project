@@ -10,11 +10,9 @@ import { DialogComponent } from '../../../dialog/dialog.component';
 export class ProfileImgComponent implements OnInit {
   @Input() userImg: string;
 
-  constructor(private dialog: MatDialog) {}
+  constructor() {}
 
-  public openChangeAvatarDialog(): void {
-    this.dialog.open(DialogComponent);
+  ngOnInit(): void {
+    console.log(this.userImg);
   }
-
-  ngOnInit(): void {}
 }

@@ -16,6 +16,7 @@ export class IconNavComponent implements OnInit {
   public userInfo: User;
 
   public lang = 'en';
+  public profileStatus: boolean;
 
   constructor(
     private router: Router,
@@ -29,7 +30,19 @@ export class IconNavComponent implements OnInit {
       .getObjectByRef('users', localStorage.getItem('userLoginID'))
       .subscribe((value) => {
         this.userInfo = value;
+        this.profileStatus = value.profile_status;
         console.log(this.userInfo);
+      });
+  }
+
+  profileStatusChanger() {
+    this.profileStatus = !this.profileStatus;
+    this.crudService
+      .updateObject('users', localStorage.getItem('userLoginID'), {
+        profile_status: this.profileStatus,
+      })
+      .subscribe((value) => {
+        window.location.reload();
       });
   }
 

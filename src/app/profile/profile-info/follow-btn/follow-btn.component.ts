@@ -10,16 +10,27 @@ import { CrudService } from '../../../services/crud.service';
 export class FollowBtnComponent implements OnInit {
   @Input() user: User;
 
-  public subsCount;
+  public btnStatus;
+
+  public subsCount: boolean;
+
+  public currentSubsCount;
 
   public btnFlag: string;
 
   constructor(private crud: CrudService) {}
 
   ngOnInit(): void {
+    this.btnStatus = false;
     this.crud.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe((value) => {
       this.subsCount = value.user_subs;
       this.changerBtnFlag();
+    });
+    this.crud.getObjectByRef('users', localStorage.getItem('currentUserID')).subscribe((value) => {
+      this.currentSubsCount = value.user_signed;
+      this.btnStatus = true;
+      console.log(value);
+      console.log(this.currentSubsCount);
     });
   }
 
@@ -41,6 +52,11 @@ export class FollowBtnComponent implements OnInit {
         user_subs: this.subsCount,
       });
       this.changerBtnFlag();
+      delete this.currentSubsCount[localStorage.getItem('userLoginID')];
+      this.crud.updateObjectWithUpdate('users', localStorage.getItem('currentUserID'), {
+        user_signed: this.currentSubsCount,
+      });
+      console.log(this.currentSubsCount);
       // console.log(this.subsCount);
     } else {
       this.subsCount[localStorage.getItem('currentUserID')] = localStorage.getItem('currentUserID');
@@ -48,6 +64,11 @@ export class FollowBtnComponent implements OnInit {
         user_subs: this.subsCount,
       });
       this.changerBtnFlag();
+      this.currentSubsCount[localStorage.getItem('userLoginID')] = localStorage.getItem('userLoginID');
+      this.crud.updateObjectWithUpdate('users', localStorage.getItem('currentUserID'), {
+        user_signed: this.currentSubsCount,
+      });
+      console.log(this.currentSubsCount);
       // console.log(this.subsCount);
     }
 

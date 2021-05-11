@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../../../services/interfaces/post.model';
 
 @Component({
   selector: 'app-profile-post',
@@ -7,14 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfilePostComponent implements OnInit {
   @Input()
-  postImg: string;
+  post: Post;
 
-  @Input()
-  postID: string;
+  public postID: string;
+
+  public postImg: string;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.postID = this.post.id;
+    this.postImg = this.post.imageLink;
     console.log(this.postID);
   }
 }

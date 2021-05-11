@@ -1,4 +1,7 @@
 <div class="post">
   <img src="{{postImg}}" alt="{{postImg}}">
-  <app-likes-comments></app-likes-comments>
+  <app-likes-comments
+    [postLikes]="post.likes"
+    [postID]="post.id"
+  ></app-likes-comments>
 </div>

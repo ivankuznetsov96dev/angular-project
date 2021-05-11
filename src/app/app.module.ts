@@ -37,6 +37,7 @@ import { ZoomDirective } from './services/zoom.directive';
 import { DoubleContentDirective } from './services/double-content.directive';
 import { DialogComponent } from './dialog/dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PostOpenComponent } from './post-open/post-open.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ZoomDirective,
     DoubleContentDirective,
     DialogComponent,
+    PostOpenComponent,
   ],
   imports: [
     BrowserModule,

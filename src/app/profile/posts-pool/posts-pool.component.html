@@ -1,10 +1,9 @@
-<mat-tab-group mat-align-tabs="center" >
+<mat-tab-group mat-align-tabs="center" *ngIf="profileStatus === true">
   <mat-tab label="Publications">
     <div class="tab">
       <div class="tab" *ngFor="let card of filtredObj; trackBy:trackFunction;">
         <app-profile-post
-          [postID]="card['id']"
-          [postImg]="card['imageLink']"
+          [post]="card"
         ></app-profile-post>
       </div>
 <!--      <app-profile-post></app-profile-post>-->
@@ -23,3 +22,5 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+
+<div *ngIf="profileStatus === false">Profile closed!</div>

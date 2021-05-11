@@ -69,6 +69,16 @@ export class ProfileComponent implements OnInit {
             user_subs: {},
           });
         }
+        if (value.user_signed === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            user_signed: {},
+          });
+        }
+        if (value.profile_status === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            profile_status: true,
+          });
+        }
       });
 
     this.getObjByLocaleUserID();
@@ -85,6 +95,8 @@ export class ProfileComponent implements OnInit {
     });
 
     this.initForm();
+
+
   }
 
   getBooks() {
