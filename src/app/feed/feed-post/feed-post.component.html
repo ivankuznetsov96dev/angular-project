@@ -7,13 +7,15 @@
     <mat-card-subtitle>{{postCreaterID}}</mat-card-subtitle>
   </mat-card-header>
   <div>{{card.id}}</div>
-  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}">
+  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}" (click)="postOpen()">
   <mat-card-actions class="card-actions">
     <app-likes-comments
       [postLikes]="card.likes"
       [postID]="card.id"
     ></app-likes-comments>
-    <mat-icon>folder_open</mat-icon>
+    <button mat-icon-button>
+      <mat-icon>folder_open</mat-icon>
+    </button>
   </mat-card-actions>
   <mat-card-content>
     <p>

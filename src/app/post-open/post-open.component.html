@@ -1,8 +1,92 @@
 <div class="post">
   <div class="img">
-    <img src="" alt="">
+    <img src="{{data.card.imageLink}}" alt="Post picture">
   </div>
+
   <div class="post-info">
-    test test
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ data.postCreaterAvatar +')'"></div>
+        <!--    <mat-card-title>{{card.userPostCreater}}</mat-card-title>-->
+        <!--    <mat-card-subtitle>{{card.userPostCreater}}</mat-card-subtitle>-->
+        <mat-card-title>{{data.postCreater}}</mat-card-title>
+        <mat-card-subtitle>{{data.postCreaterID}}</mat-card-subtitle>
+      </mat-card-header>
+      <div>{{data.card.id}}</div>
+
+      <mat-card-actions class="card-actions">
+        <app-likes-comments
+          [postLikes]="data.card.likes"
+          [postID]="data.card.id"
+        ></app-likes-comments>
+
+        <div>
+          <button mat-icon-button>
+            <mat-icon>folder_open</mat-icon>
+          </button>
+
+          <!--        Math menu with post config btns-->
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Post config">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+
+      </mat-card-actions>
+      <mat-card-content>
+        <p>
+          <span>{{data.card.postTags}}</span>
+          <span>{{data.card.peoplesID}}</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="comments">
+      <div class="card-comment" *ngFor="let comment of fullComment; trackBy:trackFunction;">
+        <mat-card class="card">
+            <mat-card-header class="card-comment-header">
+              <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ comment.picture +')'"></div>
+              <mat-card-title>{{comment.name}}</mat-card-title>
+              <mat-card-subtitle>{{comment.user}}</mat-card-subtitle>
+              <mat-card-actions class="menu-btn">
+                <!--        Math comment menu with post config btns-->
+                <button mat-icon-button [matMenuTriggerFor]="commentMenu" aria-label="Post config">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #commentMenu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </mat-card-actions>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{comment.text}}</p>
+            </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="text-area">
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Add comment..."
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="3"
+                  [(ngModel)]="area_text"
+        ></textarea>
+      </mat-form-field>
+      <div class="btn-group">
+        <button mat-button color="warn">Cancel</button>
+        <button mat-button color="primary" (click)="pressSendBtn()">Send</button>
+      </div>
+    </div>
   </div>
 </div>

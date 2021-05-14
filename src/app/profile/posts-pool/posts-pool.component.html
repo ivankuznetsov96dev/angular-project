@@ -4,6 +4,7 @@
       <div class="tab" *ngFor="let card of filtredObj; trackBy:trackFunction;">
         <app-profile-post
           [post]="card"
+          (click)="postOpen(card)"
         ></app-profile-post>
       </div>
 <!--      <app-profile-post></app-profile-post>-->

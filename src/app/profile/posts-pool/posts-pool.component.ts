@@ -2,11 +2,14 @@ import { Component, OnInit, DoCheck, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth/auth.service';
 import { CrudService } from '../../services/crud.service';
 import { UploadService } from '../../services/upload.service';
 import { StorageService } from '../../services/storage.service';
 import { Post } from '../../services/interfaces/post.model';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { PostOpenComponent } from '../../post-open/post-open.component';
 
 @Component({
   selector: 'app-posts-pool',
@@ -30,6 +33,7 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     private fb: FormBuilder,
     private uploadService: UploadService,
     private storageService: StorageService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -92,5 +96,27 @@ export class PostsPoolComponent implements OnInit, DoCheck {
 
   public trackFunction(index, item): string {
     return item.id;
+  }
+
+  public postOpen(card): void {
+    let postCreater;
+    let postCreaterID;
+    let postCreaterAvatar;
+
+    this.crudService.getObjectByRef('users', card.userPostCreater).subscribe((value) => {
+      postCreater = value.name;
+      postCreaterID = value.email;
+      postCreaterAvatar = value.picture;
+
+      this.dialog.open(PostOpenComponent, {
+        panelClass: 'app-full-bleed-dialog',
+        data: {
+          card,
+          postCreater,
+          postCreaterID,
+          postCreaterAvatar,
+        },
+      });
+    });
   }
 }

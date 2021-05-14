@@ -70,6 +70,7 @@ export class CreatePostComponent implements OnInit {
         imageLink: this.imageLink,
         userPostCreater: localStorage.getItem('userLoginID'),
         likes: {},
+        comments: [],
       })
       .subscribe((value) => {
         this.user_postsCounter.push(value);

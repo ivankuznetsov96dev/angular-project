@@ -9,6 +9,8 @@ import { CrudService } from '../services/crud.service';
 import { UploadService } from '../services/upload.service';
 import { StorageService } from '../services/storage.service';
 import { Post } from '../services/interfaces/post.model';
+import {PostOpenComponent} from "../post-open/post-open.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-feed',
@@ -35,6 +37,7 @@ export class FeedComponent implements OnInit, DoCheck {
     private fb: FormBuilder,
     private uploadService: UploadService,
     private storageService: StorageService,
+    private dialog: MatDialog,
   ) {}
 
   public counterObj;
@@ -105,5 +108,11 @@ export class FeedComponent implements OnInit, DoCheck {
 
   public trackFunction(index, item): string {
     return item.id;
+  }
+
+  public postOpen(card): void {
+    this.dialog.open(PostOpenComponent, {
+      data: card,
+    });
   }
 }

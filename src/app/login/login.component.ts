@@ -61,6 +61,11 @@ export class LoginComponent implements OnInit {
         'fixed likes view bag',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/e166db06f986d22b03c9d49431855715aa82272b',
       ],
+      [
+        '11.05.2021',
+        'add profile open/closed functional. add profile count view',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/f5bb0c304b6bee3ddcc65318b4c1444509d2d9a8',
+      ],
     ]);
 
     // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));
