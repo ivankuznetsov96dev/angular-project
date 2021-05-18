@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { map, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,13 +27,23 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private firestore: AngularFirestore,
     private crudService: CrudService,
     private fb: FormBuilder,
     private uploadService: UploadService,
     private storageService: StorageService,
-  ) {}
+  ) {
+    if (this.router.url === '/profile') {
+      this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+    }
+    console.log(this.route.snapshot.params.id);
+    localStorage.setItem('currentUserID', this.route.snapshot.params.id);
+    if (localStorage.getItem('userLoginID') === localStorage.getItem('currentUserID')) {
+      localStorage.removeItem('currentUserID');
+    }
+  }
 
   // public inputSubject: Subject<any> = new Subject<any>();
   // public subscriptions: Subscription[] = [];

@@ -1,13 +1,22 @@
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="card && card.likes && card.id && postCreaterAvatar && postCreater && postCreaterID">
+<!--  {{card}}-->
+<!--  {{postCreaterAvatar}}-->
+<!--  {{postCreater}}-->
+<!--  {{postCreaterID}}-->
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ postCreaterAvatar +')'"></div>
-<!--    <mat-card-title>{{card.userPostCreater}}</mat-card-title>-->
-<!--    <mat-card-subtitle>{{card.userPostCreater}}</mat-card-subtitle>-->
-    <mat-card-title>{{postCreater}}</mat-card-title>
-    <mat-card-subtitle>{{postCreaterID}}</mat-card-subtitle>
+    <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ postCreaterAvatar +')'"
+         style="cursor: pointer"
+         (click)="redirectOnSlectedUserProfile(postCreaterID)"></div>
+    <mat-card-title style="cursor: pointer"
+                    (click)="redirectOnSlectedUserProfile(postCreaterID)"
+    >{{postCreater}}</mat-card-title>
+    <mat-card-subtitle style="cursor: pointer"
+                       (click)="redirectOnSlectedUserProfile(postCreaterID)"
+    >{{postCreaterID}}</mat-card-subtitle>
   </mat-card-header>
   <div>{{card.id}}</div>
-  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}" (click)="postOpen()">
+  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}"
+       (click)="postOpen(card, postCreater, postCreaterID, postCreaterAvatar)">
   <mat-card-actions class="card-actions">
     <app-likes-comments
       [postLikes]="card.likes"
@@ -21,10 +30,6 @@
     <p>
       <span>{{card.postTags}}</span>
       <span>{{card.peoplesID}}</span>
-<!--      <span>#lernJS</span>,-->
-<!--      <span>#SomeTestTag</span>,-->
-<!--      <span>@ivan_ahmed</span>,-->
-<!--      <span>@someUser</span>-->
     </p>
   </mat-card-content>
 </mat-card>

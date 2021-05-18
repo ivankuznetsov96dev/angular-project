@@ -1,5 +1,6 @@
 .example-card {
   max-width: 600px;
+  min-width: 600px;
   border-radius: 20px;
 }
 
@@ -37,4 +38,16 @@ span {
 
 img {
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .example-card {
+    min-width: 375px;
+  }
+}
+
+@media (max-width: 375px) {
+  .example-card {
+    min-width: 320px;
+  }
 }

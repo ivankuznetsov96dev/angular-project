@@ -66,6 +66,11 @@ export class LoginComponent implements OnInit {
         'add profile open/closed functional. add profile count view',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/f5bb0c304b6bee3ddcc65318b4c1444509d2d9a8',
       ],
+      [
+        '13-14.05.2021',
+        'add open post form. add func set and view comments. refactor in app. bags fix',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/87be2bd93d4528b700e4d83d90ef7d72730208b9',
+      ],
     ]);
 
     // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));
@@ -88,7 +93,8 @@ export class LoginComponent implements OnInit {
 
   public goTo(): void {
     this.authService.googleSign().subscribe(() => {
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+      // this.router.navigate([`/profile`]);
     });
     // this.authService.googleSign();
     // this.router.navigate(['/profile']);

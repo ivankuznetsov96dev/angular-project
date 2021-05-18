@@ -3,9 +3,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import firebase from 'firebase';
+import { HttpClient } from '@angular/common/http';
 import firestore = firebase.firestore;
 import DocumentReference = firebase.firestore.DocumentReference;
-import {HttpClient} from "@angular/common/http";
 import User = firebase.User;
 
 @Injectable({

@@ -64,6 +64,34 @@ export class IconNavComponent implements OnInit {
     } else {
       this.router.navigate(['/profile']);
     }
+    // localStorage.removeItem('currentUserID');
+    // console.log(this.router.url);
+
+    // if (localStorage.getItem('userLoginID') === localStorage.getItem('currentUserID')) {
+    //   localStorage.removeItem('currentUserID');
+    // }
+
+
+    // this.router.navigate(['/profile']);
+    // window.location.reload();
+
+    // if (this.router.url === `/profile/${localStorage.getItem('currentUserID')}`) {
+    //   // this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+    //   console.log('значение верно');
+    //   localStorage.removeItem('currentUserID');
+    //   // this.router.url = `/profile/${localStorage.getItem('userLoginID')}`;
+    //   // window.location.reload();
+    // } else {
+    //   console.log('значение не верно');
+    // }
+
+    // if (this.router.url === `/profile/${localStorage.removeItem('currentUserID')}`) {
+    //   // this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+    //   localStorage.removeItem('currentUserID');
+    //   window.location.reload();
+    // } else {
+    //   this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+    // }
 
     // const count = window.location.href.split('/');
     // if (count[count.length - 1] === 'profile') {

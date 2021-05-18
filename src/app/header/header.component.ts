@@ -38,8 +38,15 @@ export class HeaderComponent implements OnInit {
   public search() {
     console.log(this.searcher);
     localStorage.setItem('currentUserID', this.searcher);
-    this.searcher = '';
-    window.location.reload();
+    console.log(this.router.url);
+
+    if (this.router.url === '/feed') {
+      this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
+      // window.location.reload();
+    } else {
+      this.searcher = '';
+      this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
+    }
   }
 
   ngOnInit() {

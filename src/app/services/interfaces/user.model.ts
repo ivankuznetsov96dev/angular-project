@@ -6,7 +6,7 @@ export interface User {
   id?: string;
   locale?: string;
   name: string;
-  picture: string;
+  picture?: string;
   verified_email?: boolean;
   user_posts?: string[];
   user_signed?: {};

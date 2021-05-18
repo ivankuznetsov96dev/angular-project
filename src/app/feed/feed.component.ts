@@ -1,16 +1,16 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { element } from 'protractor';
 import { switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../services/auth/auth.service';
 import { CrudService } from '../services/crud.service';
 import { UploadService } from '../services/upload.service';
 import { StorageService } from '../services/storage.service';
 import { Post } from '../services/interfaces/post.model';
-import {PostOpenComponent} from "../post-open/post-open.component";
-import {MatDialog} from "@angular/material/dialog";
+import { PostOpenComponent } from '../post-open/post-open.component';
 
 @Component({
   selector: 'app-feed',
@@ -38,12 +38,43 @@ export class FeedComponent implements OnInit, DoCheck {
     private uploadService: UploadService,
     private storageService: StorageService,
     private dialog: MatDialog,
-  ) {}
+    private route: ActivatedRoute,
+  ) {
+    console.log(this.route.snapshot.params.id);
+    if (this.route.snapshot.params.id) {
+      this.crudService.getObjectByRef('posts', this.route.snapshot.params.id).subscribe((value) => {
+        const openPostCard = value;
+        openPostCard.id = this.route.snapshot.params.id;
+        console.log(openPostCard);
+        this.crudService.getObjectByRef('users', openPostCard.userPostCreater).subscribe((val) => {
+          const postCreater = val.name;
+          const postCreaterID = val.email;
+          const postCreaterAvatar = val.picture;
+          // console.log(this.postCreater, this.postCreaterID, this.postCreaterAvatar);
+          this.postOpen(openPostCard, postCreater, postCreaterID, postCreaterAvatar);
+        });
+      });
+    }
+  }
+
+  public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
+    this.dialog.open(PostOpenComponent, {
+      panelClass: 'app-full-bleed-dialog',
+      data: {
+        card,
+        postCreater,
+        postCreaterID,
+        postCreaterAvatar,
+      },
+    });
+  }
 
   public counterObj;
 
   public counterUserPosts;
+
   public userFeed;
+
   public userSubsArray;
 
   public subsPosts = [];
@@ -60,8 +91,8 @@ export class FeedComponent implements OnInit, DoCheck {
 
     this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
-      console.log(value);
-      console.log(this.counterObj);
+      // console.log(value);
+      // console.log(this.counterObj);
       this.filtrPipe();
     });
   }
@@ -91,7 +122,7 @@ export class FeedComponent implements OnInit, DoCheck {
   public concatPostsArray() {
     this.userSubsArray.forEach((user) => {
       this.crudService.getObjectByRef('users', user).subscribe((value1) => {
-        console.log(user);
+        // console.log(user);
         this.subsPosts = this.subsPosts.concat(value1.user_posts);
         // console.log(this.subsPosts);
       });
@@ -110,9 +141,9 @@ export class FeedComponent implements OnInit, DoCheck {
     return item.id;
   }
 
-  public postOpen(card): void {
-    this.dialog.open(PostOpenComponent, {
-      data: card,
-    });
-  }
+  // public postOpen(card): void {
+  //   this.dialog.open(PostOpenComponent, {
+  //     data: card,
+  //   });
+  // }
 }
