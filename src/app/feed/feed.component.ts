@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { element } from 'protractor';
 import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 import { AuthService } from '../services/auth/auth.service';
 import { CrudService } from '../services/crud.service';
 import { UploadService } from '../services/upload.service';
@@ -39,34 +40,37 @@ export class FeedComponent implements OnInit, DoCheck {
     private storageService: StorageService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
+    private location: Location,
   ) {
-    console.log(this.route.snapshot.params.id);
-    if (this.route.snapshot.params.id) {
-      this.crudService.getObjectByRef('posts', this.route.snapshot.params.id).subscribe((value) => {
-        const openPostCard = value;
-        openPostCard.id = this.route.snapshot.params.id;
-        console.log(openPostCard);
-        this.crudService.getObjectByRef('users', openPostCard.userPostCreater).subscribe((val) => {
-          const postCreater = val.name;
-          const postCreaterID = val.email;
-          const postCreaterAvatar = val.picture;
-          // console.log(this.postCreater, this.postCreaterID, this.postCreaterAvatar);
-          this.postOpen(openPostCard, postCreater, postCreaterID, postCreaterAvatar);
+    console.log(this.route.snapshot.params.post);
+    if (this.route.snapshot.params.post) {
+      this.crudService
+        .getObjectByRef('posts', this.route.snapshot.params.post)
+        .subscribe((value) => {
+          const openPostCard = value;
+          openPostCard.id = this.route.snapshot.params.post;
+          console.log(openPostCard);
+          this.crudService
+            .getObjectByRef('users', openPostCard.userPostCreater)
+            .subscribe((val) => {
+              let postCreater;
+              let postCreaterAvatar;
+              const postCreaterID = val.email;
+              if (val.user_avatar !== '') {
+                postCreaterAvatar = val.user_avatar;
+              } else {
+                postCreaterAvatar = val.picture;
+              }
+              if (val.user_name !== '') {
+                postCreater = val.user_name;
+              } else {
+                postCreater = val.name;
+              }
+              // console.log(this.postCreater, this.postCreaterID, this.postCreaterAvatar);
+              this.postOpen(openPostCard, postCreater, postCreaterID, postCreaterAvatar);
+            });
         });
-      });
     }
-  }
-
-  public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
-    this.dialog.open(PostOpenComponent, {
-      panelClass: 'app-full-bleed-dialog',
-      data: {
-        card,
-        postCreater,
-        postCreaterID,
-        postCreaterAvatar,
-      },
-    });
   }
 
   public counterObj;
@@ -139,6 +143,24 @@ export class FeedComponent implements OnInit, DoCheck {
 
   public trackFunction(index, item): string {
     return item.id;
+  }
+
+  public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
+    const dialogRef = this.dialog.open(PostOpenComponent, {
+      panelClass: 'app-full-bleed-dialog',
+      data: {
+        card,
+        postCreater,
+        postCreaterID,
+        postCreaterAvatar,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((value) => {
+      console.log('feed token');
+      // this.router.navigate(['/feed']);
+      this.location.replaceState(`/feed`);
+    });
   }
 
   // public postOpen(card): void {

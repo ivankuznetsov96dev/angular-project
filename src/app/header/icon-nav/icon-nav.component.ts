@@ -15,6 +15,8 @@ import { User } from '../../services/interfaces/user.model';
 export class IconNavComponent implements OnInit {
   public userInfo: User;
 
+  public user_avatar: string;
+
   public lang = 'en';
   public profileStatus: boolean;
 
@@ -26,13 +28,19 @@ export class IconNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.crudService
-      .getObjectByRef('users', localStorage.getItem('userLoginID'))
-      .subscribe((value) => {
-        this.userInfo = value;
-        this.profileStatus = value.profile_status;
-        console.log(this.userInfo);
-      });
+    this.crudService.handleData('users').subscribe(() => {
+      this.crudService
+        .getObjectByRef('users', localStorage.getItem('userLoginID'))
+        .subscribe((value) => {
+          this.userInfo = value;
+          if (value.user_avatar !== '') {
+            this.user_avatar = value.user_avatar;
+          } else {
+            this.user_avatar = value.picture;
+          }
+          this.profileStatus = value.profile_status;
+        });
+    });
   }
 
   profileStatusChanger() {

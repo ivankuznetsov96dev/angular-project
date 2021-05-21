@@ -1,19 +1,19 @@
   <div class="profile-info">
     <mat-card class="user-info">
-      <button mat-icon-button class="edit-info-btn" (click)="openDialog()">
+      <button mat-icon-button class="edit-info-btn" *ngIf="flagUserInfoChangeBtn" (click)="openDialog()">
         <mat-icon>edit</mat-icon>
       </button>
-<!--      <h1>{{userInfo['name']}}</h1>-->
-<!--      <h2>{{userInfo['email']}}</h2>-->
-      <h1>{{userInfo.name}}</h1>
-      <h2>{{userInfo.email}}</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto assumenda autem itaque, perferendis
-        quia quidem quod sint sunt unde.</p>
+      <h1 *ngIf="user_name">{{user_name}}</h1>
+      <h2 *ngIf="user_email">{{user_email}}</h2>
+<!--      <h1>{{userInfo.name}}</h1>-->
+<!--      <h2>{{userInfo.email}}</h2>-->
+      <p *ngIf="user_info">{{user_info}}</p>
       <app-profile-info-counters [user]="userInfo"></app-profile-info-counters>
     </mat-card>
 
     <mat-card class="img_btn">
-      <app-profile-img class="user-profile-photo" [userImg]="userInfo.picture" (click)="openChangeAvatarDialog()"></app-profile-img>
+<!--      <app-profile-img class="user-profile-photo" [userImg]="userInfo.picture"></app-profile-img>-->
+      <app-profile-img class="user-profile-photo" [userImg]="user_avatar"></app-profile-img>
       <app-follow-btn class="follow-btn" [user]="userInfo"></app-follow-btn>
     </mat-card>
   </div>

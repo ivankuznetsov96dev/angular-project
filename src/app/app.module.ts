@@ -38,6 +38,7 @@ import { DoubleContentDirective } from './services/double-content.directive';
 import { DialogComponent } from './dialog/dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PostOpenComponent } from './post-open/post-open.component';
+import { CommentComponent } from './post-open/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { PostOpenComponent } from './post-open/post-open.component';
     DoubleContentDirective,
     DialogComponent,
     PostOpenComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

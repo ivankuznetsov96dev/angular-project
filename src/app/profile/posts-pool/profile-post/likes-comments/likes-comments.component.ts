@@ -17,6 +17,8 @@ export class LikesCommentsComponent implements OnInit {
 
   public postCount;
 
+  public commentsCounter;
+
   public colorCounter: boolean;
 
   public test;
@@ -47,23 +49,22 @@ export class LikesCommentsComponent implements OnInit {
 
   public getLikes(): void {
     this.crudService.getObjectByRef('posts', this.postID).subscribe((value) => {
-      // console.log(value)
       this.postCount = value.likes;
-      console.log(this.postCount);
       this.likesCounter = Object.keys(this.postCount).length;
+      this.commentsCounter = Object.keys(value.comments).length;
       this.changerBtnColor();
     });
   }
 
   public changerBtnColor() {
     if (this.postCount[localStorage.getItem('userLoginID')]) {
-      console.log(this.postCount[localStorage.getItem('userLoginID')]);
+      // console.log(this.postCount[localStorage.getItem('userLoginID')]);
       this.colorCounter = true;
-      console.log(this.colorCounter);
+      // console.log(this.colorCounter);
     } else {
-      console.log(this.postCount[localStorage.getItem('userLoginID')]);
+      // console.log(this.postCount[localStorage.getItem('userLoginID')]);
       this.colorCounter = false;
-      console.log(this.colorCounter);
+      // console.log(this.colorCounter);
     }
   }
 

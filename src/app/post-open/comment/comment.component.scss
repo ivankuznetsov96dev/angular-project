@@ -1,0 +1,31 @@
+.example-header-image {
+  //background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  position:relative;
+
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.card-comment-header {
+  size: 14px;
+}
+
+.card {
+  min-width: 290px;
+  font-size: small;
+  position: relative;
+}
+
+::ng-deep .mat-card-header-text {
+  font-size: 16px;
+}
+
+.menu-btn {
+  position: absolute;
+  right: 0;
+}

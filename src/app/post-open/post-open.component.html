@@ -1,4 +1,4 @@
-<div class="post">
+<div class="post" *ngIf="data">
   <div class="img">
     <img src="{{data.card.imageLink}}" alt="Post picture">
   </div>
@@ -10,6 +10,7 @@
         <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ data.postCreaterAvatar +')'"></div>
         <mat-card-title>{{data.postCreater}}</mat-card-title>
         <mat-card-subtitle>{{data.postCreaterID}}</mat-card-subtitle>
+<!--        <mat-card-subtitle>{{data.time}}</mat-card-subtitle>-->
       </mat-card-header>
       <div>{{data.card.id}}</div>
 
@@ -46,29 +47,8 @@
     </mat-card>
 
     <div class="comments">
-      <div class="card-comment" *ngFor="let comment of fullComment; trackBy:trackFunction;">
-        <mat-card class="card">
-            <mat-card-header class="card-comment-header">
-              <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ comment.picture +')'"></div>
-              <mat-card-title>{{comment.name}}</mat-card-title>
-              <mat-card-subtitle>{{comment.user}}</mat-card-subtitle>
-              <mat-card-actions class="menu-btn">
-                <!--        Math comment menu with post config btns-->
-                <button mat-icon-button [matMenuTriggerFor]="commentMenu" aria-label="Post config">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #commentMenu="matMenu">
-                  <button mat-menu-item>
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                </mat-menu>
-              </mat-card-actions>
-            </mat-card-header>
-            <mat-card-content>
-              <p>{{comment.text}}</p>
-            </mat-card-content>
-        </mat-card>
+      <div class="card-comment" *ngFor="let postComment of filtredComments; trackBy:trackFunction;">
+        <app-comment [comment]="postComment"></app-comment>
       </div>
     </div>
 
@@ -82,7 +62,7 @@
         ></textarea>
       </mat-form-field>
       <div class="btn-group">
-        <button mat-button color="warn">Cancel</button>
+        <button mat-button color="warn" mat-dialog-close>Cancel</button>
         <button mat-button color="primary" (click)="pressSendBtn()">Send</button>
       </div>
     </div>

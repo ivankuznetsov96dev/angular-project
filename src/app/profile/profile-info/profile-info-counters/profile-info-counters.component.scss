@@ -11,3 +11,12 @@
     margin: 0 20px;
   }
 }
+
+@media (max-width: 400px) {
+  .counters {
+    flex-direction: column;
+    &>span {
+      margin: 10px 20px;
+    }
+  }
+}

@@ -29,5 +29,5 @@
   </mat-menu>
 
 
-  <app-profile-img class="header-profile-img" (click)="goToProfile()" [userImg]="userInfo.picture"></app-profile-img>
+  <app-profile-img class="header-profile-img" *ngIf="user_avatar" (click)="goToProfile()" [userImg]="user_avatar"></app-profile-img>
 </nav>

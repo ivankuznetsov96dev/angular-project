@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Post } from '../../services/interfaces/post.model';
 import { CrudService } from '../../services/crud.service';
 import { PostOpenComponent } from '../../post-open/post-open.component';
@@ -15,6 +16,8 @@ export class FeedPostComponent implements OnInit {
   // public postTags;
 
   @Input() card: Post;
+
+  public imgFlag = false;
 
   public postCreater: string;
 
@@ -32,25 +35,47 @@ export class FeedPostComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
     // this.peoplesID.push(this.postPeoplesID.split(','));
     // console.log(this.peoplesID)
-    console.log(this.card);
+    // console.log(this.card);
+    setTimeout(() => {
+      this.imgFlag = true;
+    }, 1000);
     this.getUserInfo();
   }
 
   public getUserInfo(): void {
-    this.crudService.getObjectByRef('users', this.card.userPostCreater).subscribe((value) => {
-      this.postCreater = value.name;
-      this.postCreaterID = value.email;
-      this.postCreaterAvatar = value.picture;
+    this.crudService.handleData('users').subscribe(() => {
+      this.crudService.getObjectByRef('users', this.card.userPostCreater).subscribe((value) => {
+        if (value.user_name !== '') {
+          this.postCreater = value.user_name;
+        } else {
+          this.postCreater = value.name;
+        }
+
+        this.postCreaterID = value.email;
+
+        if (value.user_avatar !== '') {
+          this.postCreaterAvatar = value.user_avatar;
+        } else {
+          this.postCreaterAvatar = value.picture;
+        }
+        // this.postCreater = value.name;
+        // this.postCreaterID = value.email;
+        // this.postCreaterAvatar = value.picture;
+      });
     });
   }
 
   public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
-    this.dialog.open(PostOpenComponent, {
+    // this.router.navigateByUrl(`/feed/${this.card.id}`);
+    // this.router.navigate([`/feed/${this.card.id}`]);
+    this.location.replaceState(`/feed/${this.card.id}`);
+    const dialogRef = this.dialog.open(PostOpenComponent, {
       panelClass: 'app-full-bleed-dialog',
       data: {
         // card: this.card,
@@ -62,6 +87,12 @@ export class FeedPostComponent implements OnInit {
         postCreaterID,
         postCreaterAvatar,
       },
+    });
+
+    dialogRef.afterClosed().subscribe((value) => {
+      console.log('token feed-post');
+      this.location.replaceState(`/feed`);
+      // this.router.navigate(['/feed']);
     });
     // this.router.navigate(['/feed/p/', this.card.id]);
     // this.router.navigateByUrl(`/feed/p/${this.card.id}`);

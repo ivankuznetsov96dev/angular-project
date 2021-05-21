@@ -1,8 +1,9 @@
 import { Component, OnInit, DoCheck, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { CrudService } from '../../services/crud.service';
 import { UploadService } from '../../services/upload.service';
@@ -27,6 +28,7 @@ export class PostsPoolComponent implements OnInit, DoCheck {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private firestore: AngularFirestore,
     private crudService: CrudService,
@@ -34,6 +36,7 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     private uploadService: UploadService,
     private storageService: StorageService,
     private dialog: MatDialog,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -99,16 +102,25 @@ export class PostsPoolComponent implements OnInit, DoCheck {
   }
 
   public postOpen(card): void {
+    this.location.replaceState(`/profile/${this.route.snapshot.params.id}/${card.id}`);
     let postCreater;
     let postCreaterID;
     let postCreaterAvatar;
 
     this.crudService.getObjectByRef('users', card.userPostCreater).subscribe((value) => {
-      postCreater = value.name;
       postCreaterID = value.email;
-      postCreaterAvatar = value.picture;
+      if (value.user_avatar !== '') {
+        postCreaterAvatar = value.user_avatar;
+      } else {
+        postCreaterAvatar = value.picture;
+      }
+      if (value.user_name !== '') {
+        postCreater = value.user_name;
+      } else {
+        postCreater = value.name;
+      }
 
-      this.dialog.open(PostOpenComponent, {
+      const dialogRef = this.dialog.open(PostOpenComponent, {
         panelClass: 'app-full-bleed-dialog',
         data: {
           card,
@@ -116,6 +128,11 @@ export class PostsPoolComponent implements OnInit, DoCheck {
           postCreaterID,
           postCreaterAvatar,
         },
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        console.log('post-pool token');
+        this.location.replaceState(`/profile/${this.route.snapshot.params.id}`);
       });
     });
   }

@@ -12,4 +12,7 @@ export interface User {
   user_signed?: {};
   user_subs?: {};
   profile_status?: boolean;
+  user_name?: string;
+  user_info?: string;
+  user_avatar?: string;
 }

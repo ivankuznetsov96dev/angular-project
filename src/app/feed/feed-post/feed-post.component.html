@@ -15,8 +15,13 @@
     >{{postCreaterID}}</mat-card-subtitle>
   </mat-card-header>
   <div>{{card.id}}</div>
-  <img mat-card-image class="post-img" src="{{card.imageLink}}" alt="{{card.imageLink}}"
+
+  <img mat-card-image class="post-img" *ngIf="imgFlag === false"
+       src="assets/loading/0_DqHGYPBA-ANwsma2.gif" alt="Loading">
+  <img mat-card-image class="post-img" *ngIf="imgFlag === true"
+       src="{{card.imageLink}}" alt="{{card.imageLink}}"
        (click)="postOpen(card, postCreater, postCreaterID, postCreaterAvatar)">
+<!--       (click)="postOpen(card, postCreater, postCreaterID, postCreaterAvatar)" routerLink="/feed/{{card.id}}">-->
   <mat-card-actions class="card-actions">
     <app-likes-comments
       [postLikes]="card.likes"

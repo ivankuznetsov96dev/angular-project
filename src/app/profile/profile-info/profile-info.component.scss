@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: space-between;
     border-radius: 20px;
+    width: 100%;
   }
 
   .edit-info-btn {
@@ -25,6 +26,7 @@
     align-items: center;
     margin-left: 20px;
     border-radius: 20px;
+    max-height: 290px;
 
     .user-profile-photo {
       height: 200px;
@@ -50,5 +52,10 @@
   .profile-info {
     justify-content: center;
     flex-direction: column-reverse;
+
+    .img_btn {
+      max-width: 100%;
+      margin: 0 0 10px 0;
+    }
   }
 }

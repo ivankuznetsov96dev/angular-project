@@ -19,6 +19,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    min-width: 300px;
 
     .example-card {
       max-width: 100%;
@@ -78,4 +79,8 @@
       }
     }
   }
+}
+
+app-comment {
+  font-size: small;
 }

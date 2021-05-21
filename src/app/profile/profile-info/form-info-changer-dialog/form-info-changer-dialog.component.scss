@@ -1,6 +1,6 @@
 .form-info-changer {
   position: relative;
-  min-width: 600px;
+  min-width: 293px;
   max-width: 600px;
 
   .cancel-btn {
@@ -11,6 +11,23 @@
 
   .form-field {
     width: 100%;
+  }
+
+  .add_img {
+    max-width: 293px;
+    max-height: 293px;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 430px) {
+  .form-info-changer {
+    min-width: 220px;
+
+    .add_img {
+      width: 200px;
+      height: 200px;
+    }
   }
 }
 
