@@ -69,12 +69,17 @@ export class CreatePostComponent implements OnInit {
         ...this.createNewPostReactiveForm.value,
         imageLink: this.imageLink,
         userPostCreater: localStorage.getItem('userLoginID'),
+        postTime: new Date(),
         likes: {},
         comments: {},
       })
       .subscribe((value) => {
-        this.user_postsCounter.push(value);
-        this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+        // this.user_postsCounter.push(value);
+        this.user_postsCounter[`${value}`] = `${value}`;
+        // this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+        //   user_posts: this.user_postsCounter,
+        // });
+        this.crudService.updateObjectWithUpdate('users', localStorage.getItem('userLoginID'), {
           user_posts: this.user_postsCounter,
         });
         this.user_postsCounter = null;

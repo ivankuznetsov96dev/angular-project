@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
@@ -29,7 +29,8 @@ import { PostOpenComponent } from '../post-open/post-open.component';
 //   peoplesID: string;
 //   postTags: string;
 // }
-export class FeedComponent implements OnInit, DoCheck {
+// export class FeedComponent implements OnInit, OnChanges {
+export class FeedComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -85,34 +86,49 @@ export class FeedComponent implements OnInit, DoCheck {
 
   public filtredObj: Post[];
 
-  ngOnInit(): void {
-    // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
-    //   this.counterUserPosts = value['user_posts'];
-    //   console.log(this.counterUserPosts);
-    // });
+  // ngOnInit(): void {
+  //   // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
+  //   //   this.counterUserPosts = value['user_posts'];
+  //   //   console.log(this.counterUserPosts);
+  //   // });
+  //
+  //   // this.filtrPipe();
+  //
+  //   this.crudService.handleData('posts').subscribe((value) => {
+  //     this.counterObj = value;
+  //     // console.log(value);
+  //     // console.log(this.counterObj);
+  //     this.filtrPipe();
+  //   });
+  // }
 
-    // this.filtrPipe();
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   // this.crudService.handleData('posts').subscribe((value) => {
+  //   //   this.counterObj = value;
+  //   //   this.filtrPipe();
+  //   // });
+  // }
 
+  ngOnInit() {
     this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
-      // console.log(value);
-      // console.log(this.counterObj);
       this.filtrPipe();
     });
   }
 
-  ngDoCheck(): void {
-    this.postsFilter();
-  }
+  // ngDoCheck(): void {
+  //   this.postsFilter();
+  // }
 
   public filtrPipe() {
     this.crudService
       .getObjectByRef('users', localStorage.getItem('userLoginID'))
       .subscribe((value) => {
-        this.counterUserPosts = value.user_posts;
-        console.log(this.counterUserPosts);
+        // this.counterUserPosts = value.user_posts;
+        this.counterUserPosts = Object.keys(value.user_posts);
+        // console.log(this.counterUserPosts);
         this.userSubsArray = Object.keys(value.user_subs);
-        console.log(this.userSubsArray);
+        // console.log(this.userSubsArray);
         this.concatPostsArray();
       });
 
@@ -125,19 +141,35 @@ export class FeedComponent implements OnInit, DoCheck {
 
   public concatPostsArray() {
     this.userSubsArray.forEach((user) => {
-      this.crudService.getObjectByRef('users', user).subscribe((value1) => {
+      this.crudService.getObjectByRef('users', user).subscribe((value) => {
         // console.log(user);
-        this.subsPosts = this.subsPosts.concat(value1.user_posts);
+        // this.subsPosts = this.subsPosts.concat(value1.user_posts);
+        this.subsPosts = this.subsPosts.concat(Object.keys(value.user_posts));
+        // this.subsPosts.concat(Object.keys(value.user_posts));
         // console.log(this.subsPosts);
+        if (user === this.userSubsArray[this.userSubsArray.length - 1]) {
+          this.postsFilter();
+        }
       });
     });
   }
 
   public postsFilter() {
     this.counterUserPosts = this.counterUserPosts.concat(this.subsPosts);
-    this.filtredObj = this.counterObj.filter((element) =>
-      this.counterUserPosts.includes(element.id),
-    );
+    // this.counterUserPosts.concat(this.subsPosts);
+    // this.filtredObj = this.counterObj.filter((el) => this.counterUserPosts.includes(el.id));
+    const filtredComments = this.counterObj.filter((el) => this.counterUserPosts.includes(el.id));
+    console.log(filtredComments);
+    // this.filtredObj = filtredComments;
+
+    this.filtredObj = filtredComments.sort(function (prev, next) {
+      return next.postTime - prev.postTime;
+      // console.log('prev');
+      // console.log(prev.time);
+      // console.log('next');
+      // console.log(next.time);
+      // return prev.postTime - next.postTime;
+    });
     // console.log(this.filtredObj)
   }
 
@@ -158,8 +190,12 @@ export class FeedComponent implements OnInit, DoCheck {
 
     dialogRef.afterClosed().subscribe((value) => {
       console.log('feed token');
+      console.log(this.route.snapshot.params);
+      if (this.router.url === `/feed/${this.route.snapshot.params.post}`) {
+        this.location.replaceState(`/feed`);
+      }
       // this.router.navigate(['/feed']);
-      this.location.replaceState(`/feed`);
+      // this.location.replaceState(`/feed`);
     });
   }
 

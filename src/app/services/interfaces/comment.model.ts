@@ -3,4 +3,5 @@ export interface Comment {
   comment_creater: string;
   post_id: string;
   text: string;
+  time;
 }

@@ -44,6 +44,7 @@
 
     .comments {
       overflow: auto;
+      overflow-x: hidden;
       height: 100%;
       width: 100%;
 
@@ -83,4 +84,40 @@
 
 app-comment {
   font-size: small;
+}
+
+@media (max-width: 768px) {
+  .post {
+    flex-direction: column;
+    justify-content: space-between;
+
+    .img {
+      min-height: 300px;
+      width: 100%;
+
+      &>img {
+        //width: 400px;
+        min-height: 300px;
+        //height: 300px;
+      }
+    }
+
+    .comments {
+      app-comment {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .post-info {
+    min-width: 250px;
+    width: 270px;
+  }
+
+  .card {
+    max-width: 300px;
+    min-width: 200px;
+  }
 }

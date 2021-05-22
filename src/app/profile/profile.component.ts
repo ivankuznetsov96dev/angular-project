@@ -114,7 +114,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((value) => {
         if (value.user_posts === undefined) {
           this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
-            user_posts: [],
+            user_posts: {},
           });
         }
         if (value.user_avatar === undefined) {

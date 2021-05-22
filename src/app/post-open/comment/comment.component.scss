@@ -27,5 +27,11 @@
 
 .menu-btn {
   position: absolute;
-  right: 0;
+  right: 1.2rem;
+}
+
+@media (max-width: 370px) {
+  .card {
+    min-width: 250px;
+  }
 }

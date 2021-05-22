@@ -17,7 +17,8 @@ import { PostOpenComponent } from '../../post-open/post-open.component';
   templateUrl: './posts-pool.component.html',
   styleUrls: ['./posts-pool.component.scss'],
 })
-export class PostsPoolComponent implements OnInit, DoCheck {
+// export class PostsPoolComponent implements OnInit, DoCheck {
+export class PostsPoolComponent implements OnInit {
   public counterObj;
 
   public profileStatus: boolean;
@@ -44,19 +45,17 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     //   this.counterUserPosts = value['user_posts'];
     //   console.log(this.counterUserPosts);
     // });
-    this.filtrPipe();
+    // this.filtrPipe();
 
     this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
-      console.log(value);
-      console.log(this.counterObj);
       this.filtrPipe();
     });
   }
 
-  ngDoCheck(): void {
-    this.postsFilter();
-  }
+  // ngDoCheck(): void {
+  //   this.postsFilter();
+  // }
 
   public filtrPipe() {
     // let postsCollections: string;
@@ -78,22 +77,27 @@ export class PostsPoolComponent implements OnInit, DoCheck {
 
     // localStorage.removeItem('currentUserID');
 
-    console.log(postsCollections);
+    // console.log(postsCollections);
     this.crudService.getObjectByRef('users', postsCollections).subscribe((value) => {
       if (postsCollections === localStorage.getItem('currentUserID')) {
         this.profileStatus = value.profile_status;
       } else {
         this.profileStatus = true;
       }
-      this.counterUserPosts = value.user_posts;
-      console.log(this.counterUserPosts);
+      // this.counterUserPosts = value.user_posts;
+      this.counterUserPosts = Object.keys(value.user_posts);
+      // console.log(this.counterUserPosts);
+      this.postsFilter();
     });
   }
 
   public postsFilter() {
-    this.filtredObj = this.counterObj.filter((element) =>
+    const filtredComments = this.counterObj.filter((element) =>
       this.counterUserPosts.includes(element.id),
     );
+    this.filtredObj = filtredComments.sort(function (prev, next) {
+      return next.postTime - prev.postTime;
+    });
     // console.log(this.filtredObj)
   }
 

@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { concatMap, tap } from 'rxjs/operators';
 import { from, of } from 'rxjs';
+import { formatDate, Location } from '@angular/common';
 import { Post } from '../services/interfaces/post.model';
 import { CrudService } from '../services/crud.service';
 
@@ -11,21 +12,35 @@ import { CrudService } from '../services/crud.service';
   styleUrls: ['./post-open.component.scss'],
 })
 export class PostOpenComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private crud: CrudService) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private crud: CrudService,
+    private dialog: MatDialog,
+    private location: Location,
+  ) {}
 
   public area_text: string;
 
   public allComments;
 
-  public filtredComments;
+  public sortedAndFiltredComments;
 
   public user_comments;
+
+  public postSettingsFlag = false;
+
+  public postTimeData;
 
   // public comments: {}[];
   //
   // public fullComment = [];
 
   ngOnInit(): void {
+    if (this.data.postCreaterID === localStorage.getItem('userLoginID')) {
+      this.postSettingsFlag = true;
+    }
+    this.postTimeData = formatDate(this.data.card.postTime.toDate(), 'MMM d, y, h:mm a', 'en-US');
+
     this.crud.handleData('comments').subscribe((value) => {
       this.allComments = value;
       console.log(this.allComments);
@@ -35,7 +50,7 @@ export class PostOpenComponent implements OnInit {
       this.crud.getObjectByRef('posts', this.data.card.id).subscribe((value) => {
         // this.user_comments = Object.keys(value.comments);
         this.user_comments = value.comments;
-        console.log(this.user_comments);
+        // console.log(this.user_comments);
         this.commentsFilter();
         // this.fullComment.splice(0, this.fullComment.length);
         // this.concatMapFunc(this.comments);
@@ -48,10 +63,14 @@ export class PostOpenComponent implements OnInit {
   // }
 
   public commentsFilter(): void {
-    this.filtredComments = this.allComments.filter((element) =>
+    const filtredComments = this.allComments.filter((element) =>
       Object.keys(this.user_comments).includes(element.id),
     );
-    console.log(this.filtredComments);
+    console.log(filtredComments);
+    this.sortedAndFiltredComments = filtredComments.sort(function (prev, next) {
+      return next.time - prev.time;
+    });
+    console.log(this.sortedAndFiltredComments);
   }
 
   // public concatMapFunc(array) {
@@ -86,6 +105,7 @@ export class PostOpenComponent implements OnInit {
     console.log(this.area_text, this.data.card.id);
     this.crud
       .createEntity('comments', {
+        time: new Date(),
         post_id: this.data.card.id,
         text: this.area_text,
         comment_creater: localStorage.getItem('userLoginID'),
@@ -93,7 +113,25 @@ export class PostOpenComponent implements OnInit {
       .subscribe((value) => {
         this.user_comments[`${value}`] = value;
         this.crud.updateObject('posts', this.data.card.id, { comments: this.user_comments });
+        this.area_text = '';
       });
+  }
+
+  public moveOnProfile(id): void {
+    this.dialog.closeAll();
+    this.location.replaceState(`/profile/${id}`);
+    window.location.reload();
+  }
+
+  public deletePost(): void {
+    this.crud.getObjectByRef('users', this.data.postCreaterID).subscribe((value) => {
+      const count = value.user_posts;
+      delete count[`${this.data.card.id}`];
+      this.crud.updateObjectWithUpdate('users', this.data.postCreaterID, { user_posts: count });
+    });
+    this.crud.deleteObject('posts', this.data.card.id).subscribe(() => {
+      this.dialog.closeAll();
+    });
   }
 
   public trackFunction(index, item): string {

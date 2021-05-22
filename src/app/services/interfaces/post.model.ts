@@ -4,5 +4,7 @@ export interface Post {
   peoplesID?: string;
   postTags: string;
   userPostCreater: string;
+  postTime;
   likes: {};
+  comments: {};
 }

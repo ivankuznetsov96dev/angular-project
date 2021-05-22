@@ -24,4 +24,8 @@
   </mat-tab>
 </mat-tab-group>
 
-<div *ngIf="profileStatus === false">Profile closed!</div>
+<div *ngIf="profileStatus === false">
+  <mat-card class="closed_tab">
+    <h3>Profile closed!</h3>
+  </mat-card>
+</div>

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import {formatDate, Location} from '@angular/common';
 import { Post } from '../../services/interfaces/post.model';
 import { CrudService } from '../../services/crud.service';
 import { PostOpenComponent } from '../../post-open/post-open.component';
@@ -24,6 +24,10 @@ export class FeedPostComponent implements OnInit {
   public postCreaterID: string;
 
   public postCreaterAvatar: string;
+
+  public postTime;
+
+  public postTimeData;
 
   // @Input() postID: string;
   // @Input() postImg: string;
@@ -58,6 +62,8 @@ export class FeedPostComponent implements OnInit {
         }
 
         this.postCreaterID = value.email;
+        this.postTime = this.card.postTime;
+        this.postTimeData = formatDate(this.card.postTime.toDate(), 'MMM d, y, h:mm a', 'en-US');
 
         if (value.user_avatar !== '') {
           this.postCreaterAvatar = value.user_avatar;
@@ -91,7 +97,11 @@ export class FeedPostComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((value) => {
       console.log('token feed-post');
-      this.location.replaceState(`/feed`);
+      console.log(this.route.snapshot.params);
+      console.log(this.router.url);
+      if (this.router.url === `/feed/${this.route.snapshot.params.post}`) {
+        this.location.replaceState(`/feed`);
+      }
       // this.router.navigate(['/feed']);
     });
     // this.router.navigate(['/feed/p/', this.card.id]);

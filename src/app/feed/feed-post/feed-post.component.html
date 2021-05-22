@@ -5,11 +5,14 @@
 <!--  {{postCreaterID}}-->
   <mat-card-header>
     <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+ postCreaterAvatar +')'"
-         style="cursor: pointer"
+         style="cursor: pointer; margin-top: 4px"
          (click)="redirectOnSlectedUserProfile(postCreaterID)"></div>
-    <mat-card-title style="cursor: pointer"
+    <mat-card-title style="cursor: pointer; margin-bottom: 4px;"
                     (click)="redirectOnSlectedUserProfile(postCreaterID)"
-    >{{postCreater}}</mat-card-title>
+    >{{postCreater}}
+      <mat-card-subtitle
+        style="font-size: x-small; margin-bottom: 0"
+      >{{postTimeData}}</mat-card-subtitle></mat-card-title>
     <mat-card-subtitle style="cursor: pointer"
                        (click)="redirectOnSlectedUserProfile(postCreaterID)"
     >{{postCreaterID}}</mat-card-subtitle>

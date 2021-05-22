@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../../services/interfaces/user.model';
 import { CrudService } from '../../../services/crud.service';
 
@@ -28,7 +28,8 @@ export class ProfileInfoCountersComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.publicationsCounter = this.user.user_posts.length;
+    // this.publicationsCounter = this.user.user_posts.length;
+    this.publicationsCounter = Object.keys(this.user.user_posts).length;
     this.subsCounter = Object.keys(this.user.user_subs).length;
     this.signedCounter = Object.keys(this.user.user_signed).length;
   }

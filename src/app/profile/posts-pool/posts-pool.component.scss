@@ -16,6 +16,14 @@ mat-tab-group {
   }
 }
 
+.closed_tab {
+  margin-top: 20px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 885px) {
   .tab {
     justify-content: space-around;

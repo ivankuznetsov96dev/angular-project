@@ -11,6 +11,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -24,11 +29,7 @@ import { ProfileImgComponent } from './profile/profile-info/profile-img/profile-
 import { FollowBtnComponent } from './profile/profile-info/follow-btn/follow-btn.component';
 import { ProfileInfoCountersComponent } from './profile/profile-info/profile-info-counters/profile-info-counters.component';
 import { LoginComponent } from './login/login.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LikesCommentsComponent } from './profile/posts-pool/profile-post/likes-comments/likes-comments.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FeedComponent } from './feed/feed.component';
 import { FeedPostComponent } from './feed/feed-post/feed-post.component';
 import { FormInfoChangerDialogComponent } from './profile/profile-info/form-info-changer-dialog/form-info-changer-dialog.component';
@@ -36,9 +37,9 @@ import { CreatePostComponent } from './header/icon-nav/create-post/create-post.c
 import { ZoomDirective } from './services/zoom.directive';
 import { DoubleContentDirective } from './services/double-content.directive';
 import { DialogComponent } from './dialog/dialog.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { PostOpenComponent } from './post-open/post-open.component';
 import { CommentComponent } from './post-open/comment/comment.component';
+import '@angular/common/locales/global/ru';
 
 @NgModule({
   declarations: [
