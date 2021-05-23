@@ -1,5 +1,5 @@
 <div class="counters">
-  <span>{{publicationsCounter}} publications</span>
-  <span>{{signedCounter}} signed</span>
-  <span>{{subsCounter}} subscriptions</span>
+  <span *ngIf="user && publicationsCounter">{{publicationsCounter}} publications</span>
+  <span *ngIf="user && signedCounter">{{signedCounter}} signed</span>
+  <span *ngIf="user && subsCounter">{{subsCounter}} subscriptions</span>
 </div>

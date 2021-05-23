@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Observable, Subject, combineLatest, of } from 'rxjs';
 import {
   catchError,
@@ -11,8 +11,10 @@ import {
 } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {CrudService} from "../services/crud.service";
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { CrudService } from '../services/crud.service';
+import {StorageService} from "../services/storage.service";
 
 @Component({
   selector: 'app-header',
@@ -31,11 +33,28 @@ export class HeaderComponent implements OnInit {
   // endobs = this.endAt.asObservable();
 
   public usersCollections;
+
   public searcher: string;
 
-  constructor(private afs: AngularFirestore, private crud: CrudService, private router: Router) {}
+  public tag: string;
+
+  constructor(
+    private afs: AngularFirestore,
+    private crud: CrudService,
+    private storageService: StorageService,
+    private router: Router,
+    private location: Location,
+  ) {}
 
   public search() {
+    if (this.searcher.split('')[0] === '#') {
+      console.log('###########');
+      this.tag = this.searcher;
+      this.storageService.tag = this.tag;
+      localStorage.setItem('tag', this.tag);
+      this.searcher = '';
+      return;
+    }
     console.log(this.searcher);
     localStorage.setItem('currentUserID', this.searcher);
     console.log(this.router.url);
@@ -45,12 +64,34 @@ export class HeaderComponent implements OnInit {
       // window.location.reload();
     } else {
       this.searcher = '';
-      this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
+      // this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
+      this.location.replaceState(`/profile/${localStorage.getItem('currentUserID')}`);
+      window.location.reload();
     }
   }
 
+  public deleteTag() {
+    this.tag = '';
+    this.storageService.tag = null;
+    localStorage.removeItem('tag');
+  }
+
   ngOnInit() {
-    this.crud.handleData('users').subscribe(value => {
+
+
+    // this.crud.handleData('posts').subscribe((data) => this.storageService.books = data);
+    // this.storageService.setTag(localStorage.getItem('tag'));
+    // console.log(this.storageService.getTag());
+    // console.log(this.storageService.tagData);
+
+    // this.storageService.tag = localStorage.getItem('tag');
+    // this.storageService.tag$.subscribe(value => console.log(value));
+
+    // this.storageService.books$.subscribe((value) => console.log(value));
+    // this.storageService.books$.subscribe(value => console.log(value))
+    // this.storageService.books$.subscribe();
+
+    this.crud.handleData('users').subscribe((value) => {
       this.usersCollections = value;
     });
 
@@ -75,9 +116,9 @@ export class HeaderComponent implements OnInit {
   }
 
   // search($event) {
-    // const q = $event.target.value;
-    // this.startAt.next(q);
-    // this.endAt.next(q + '\uf8ff');
+  // const q = $event.target.value;
+  // this.startAt.next(q);
+  // this.endAt.next(q + '\uf8ff');
   // }
 
   // firequery(start, end) {

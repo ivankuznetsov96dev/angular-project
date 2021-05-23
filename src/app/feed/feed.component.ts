@@ -29,8 +29,8 @@ import { PostOpenComponent } from '../post-open/post-open.component';
 //   peoplesID: string;
 //   postTags: string;
 // }
-// export class FeedComponent implements OnInit, OnChanges {
-export class FeedComponent implements OnInit {
+// export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, DoCheck {
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -86,6 +86,10 @@ export class FeedComponent implements OnInit {
 
   public filtredObj: Post[];
 
+  public filtredObjSave: Post[];
+
+  public addTag: string;
+
   // ngOnInit(): void {
   //   // this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe(value => {
   //   //   this.counterUserPosts = value['user_posts'];
@@ -116,9 +120,20 @@ export class FeedComponent implements OnInit {
     });
   }
 
-  // ngDoCheck(): void {
-  //   this.postsFilter();
-  // }
+  ngDoCheck() {
+    this.storageService.tag$.subscribe((value) => {
+      if (value !== null) {
+        this.addTag = value;
+        const count = this.filtredObj;
+        const newCount = count.filter((element) =>
+          this.addTag.includes(element.postTags),
+        );
+        this.filtredObj = newCount;
+      } else {
+        this.filtredObj = this.filtredObjSave;
+      }
+    });
+  }
 
   public filtrPipe() {
     this.crudService
@@ -170,6 +185,7 @@ export class FeedComponent implements OnInit {
       // console.log(next.time);
       // return prev.postTime - next.postTime;
     });
+    this.filtredObjSave = this.filtredObj;
     // console.log(this.filtredObj)
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, DoCheck, ViewEncapsulation, OnChanges, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
@@ -17,15 +17,19 @@ import { PostOpenComponent } from '../../post-open/post-open.component';
   templateUrl: './posts-pool.component.html',
   styleUrls: ['./posts-pool.component.scss'],
 })
-// export class PostsPoolComponent implements OnInit, DoCheck {
-export class PostsPoolComponent implements OnInit {
+// export class PostsPoolComponent implements OnInit {
+export class PostsPoolComponent implements OnInit, DoCheck {
   public counterObj;
 
   public profileStatus: boolean;
 
   public counterUserPosts;
 
+  public addTag;
+
   public filtredObj: Post[];
+
+  public filtredObjSave: Post[];
 
   constructor(
     private router: Router,
@@ -53,8 +57,23 @@ export class PostsPoolComponent implements OnInit {
     });
   }
 
-  // ngDoCheck(): void {
-  //   this.postsFilter();
+  ngDoCheck() {
+    this.storageService.tag$.subscribe((value) => {
+      if (value !== null) {
+        this.addTag = value;
+        const count = this.filtredObj;
+        const newCount = count.filter((element) =>
+          this.addTag.includes(element.postTags),
+        );
+        this.filtredObj = newCount;
+      } else {
+        this.filtredObj = this.filtredObjSave;
+      }
+    });
+  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.storageService.tag$.subscribe((value) => console.log(value));
   // }
 
   public filtrPipe() {
@@ -98,6 +117,7 @@ export class PostsPoolComponent implements OnInit {
     this.filtredObj = filtredComments.sort(function (prev, next) {
       return next.postTime - prev.postTime;
     });
+    this.filtredObjSave = this.filtredObj;
     // console.log(this.filtredObj)
   }
 

@@ -71,6 +71,21 @@ export class LoginComponent implements OnInit {
         'add open post form. add func set and view comments. refactor in app. bags fix',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/87be2bd93d4528b700e4d83d90ef7d72730208b9',
       ],
+      [
+        '19.05.2021',
+        'fix bags. add profile links and update spa route logic',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/f73e5f6f2b3829c576eb986e4b89f81d72440795',
+      ],
+      [
+        '21.05.2021',
+        'fixed view syles. add user info changer. fixed bags. depricate old comments view logic, add new. fixed comments counter in posts. files refactoring',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/e9b908298df1484ef4538d882c0aed0b2a0854b5',
+      ],
+      [
+        '22.05.2021',
+        'add date in cards and comments. add coards and comments sort. add navigate limks. fixed bags. changed profile and feed filter',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/51cbdbe409dd6505bc4ecbb4f14e87ac93896bce',
+      ],
     ]);
 
     // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));

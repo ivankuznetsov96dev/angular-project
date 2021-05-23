@@ -66,7 +66,9 @@ export class CreatePostComponent implements OnInit {
   public postCreater(): void {
     this.crudService
       .createEntity('posts', {
-        ...this.createNewPostReactiveForm.value,
+        // ...this.createNewPostReactiveForm.value,
+        peoplesID: this.createNewPostReactiveForm.value.peoplesID,
+        postTags: `#${this.createNewPostReactiveForm.value.postTags}`,
         imageLink: this.imageLink,
         userPostCreater: localStorage.getItem('userLoginID'),
         postTime: new Date(),
@@ -95,7 +97,7 @@ export class CreatePostComponent implements OnInit {
   private initForm() {
     this.createNewPostReactiveForm = this.fb.group({
       peoplesID: ['', [Validators.pattern(/^[A-z @_.-]+$/)]],
-      postTags: ['', [Validators.required, Validators.pattern(/^[A-z #_.-]+$/)]],
+      postTags: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
     });
   }
 

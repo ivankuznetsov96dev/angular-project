@@ -2,9 +2,53 @@
   <div class="wrapper">
     <nav>
       <span class="logo">InstaClone</span>
-      <input type="text" class="input" [(ngModel)]="searcher" (keydown.enter)="search()" placeholder="search...">
-      <span>{{searcher}}</span>
-      <app-icon-nav></app-icon-nav>
+      <div class="input_search">
+<!--           [ngStyle]="{}"-->
+<!--           [ngClass]="{just_content: searcher}">-->
+        <input type="text" class="input" maxlength="30"
+               [(ngModel)]="searcher" (keydown.enter)="search()"
+               placeholder="search...">
+        <!--      <span>{{searcher}}</span>-->
+        <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+          <mat-chip
+            selected
+            color="primary"
+            maxlength="25"
+            style="padding-right: 0"
+            *ngIf="tag"
+            (click)="deleteTag()">
+            {{tag}}
+            <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+      <div style="display: flex">
+        <button mat-icon-button class="searchMenu" [matMenuTriggerFor]="searchMenu" aria-label="Searcher menu">
+          <mat-icon>find_in_page</mat-icon>
+        </button>
+        <mat-menu #searchMenu="matMenu">
+          <input type="text" class="input" maxlength="30"
+                 style="min-width: 262px; margin-bottom: 4px"
+                 [(ngModel)]="searcher" (keydown.enter)="search()"
+                 placeholder="search..."
+                 (click)="$event.stopPropagation();">
+          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection"
+                         style="display: flex; justify-content: center;">
+            <mat-chip
+              selected
+              color="primary"
+              maxlength="25"
+              style="width: auto; height: 20px; font-size: small;"
+              *ngIf="tag"
+              (click)="deleteTag()">
+              {{tag}}
+              <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-menu>
+        <app-icon-nav></app-icon-nav>
+      </div>
     </nav>
   </div>
 </div>

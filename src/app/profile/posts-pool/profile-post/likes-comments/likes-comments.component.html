@@ -1,6 +1,6 @@
 <div class="flex">
   <div class="flex info">
-    <button mat-icon-button (click)="checkLikesCounter()">
+    <button mat-icon-button (click)="checkLikesCounter()" (click)="$event.stopPropagation();">
       <span>{{likesCounter}}</span>
       <mat-icon class="likeBtn" [ngClass]="{
         like: colorCounter === true,

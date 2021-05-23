@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatChipsModule } from '@angular/material/chips';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -78,6 +79,7 @@ import '@angular/common/locales/global/ru';
     MatTabsModule,
     MatIconModule,
     MatMenuModule,
+    MatChipsModule,
     MatCardModule,
     MatInputModule,
     MatDialogModule,

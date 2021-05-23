@@ -165,9 +165,9 @@ export class ProfileComponent implements OnInit {
     this.initForm();
   }
 
-  getBooks() {
-    console.log(this.storageService.books);
-  }
+  // getBooks() {
+  //   console.log(this.storageService.books);
+  // }
 
   public addFirebaseToken(): void {
     this.crudService

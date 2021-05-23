@@ -19,3 +19,11 @@ nav {
     margin-left: 5px;
   }
 }
+
+@media (max-width: 380px) {
+  nav {
+    &>* {
+      margin-left: 0;
+    }
+  }
+}

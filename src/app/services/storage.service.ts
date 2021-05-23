@@ -5,18 +5,18 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class StorageService {
-  public books$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public tag$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  private _books: any;
+  private _tag: any;
 
   constructor() {}
 
-  public get books(): any {
-    return this._books;
+  public get tag(): any {
+    return this._tag;
   }
 
-  public set books(_books: any) {
-    this._books = _books;
-    this.books$.next(_books);
+  public set tag(_tag: any) {
+    this._tag = _tag;
+    this.tag$.next(_tag);
   }
 }

@@ -20,8 +20,9 @@
 
       <form [formGroup]="createNewPostReactiveForm" (submit)="onSubmit()">
         <mat-form-field class="form-field">
-          <mat-label for="peoplesID">Mark peoples:</mat-label>
-          <input matInput type="text" id="peoplesID" formControlName="peoplesID">
+<!--          <mat-label for="peoplesID">Mark peoples:</mat-label>-->
+          <mat-label for="peoplesID">Add post text:</mat-label>
+          <input matInput type="text" id="peoplesID" formControlName="peoplesID" maxlength="30">
           <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
           <!--        <mat-icon>close</mat-icon>-->
           <!--      </button>-->
@@ -33,7 +34,7 @@
 
         <mat-form-field class="form-field">
           <mat-label for="postTags">Add tags:</mat-label>
-          <input matInput type="text" id="postTags" formControlName="postTags">
+          <input matInput type="text" id="postTags" formControlName="postTags" maxlength="30">
           <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
           <!--        <mat-icon>close</mat-icon>-->
           <!--      </button>-->
@@ -74,8 +75,8 @@
 <!--    </form>-->
 
     <br/>
-    <div>
-      {{createNewPostReactiveForm.value | json}}
-    </div>
+<!--    <div>-->
+<!--      {{createNewPostReactiveForm.value | json}}-->
+<!--    </div>-->
   </div>
 </div>
