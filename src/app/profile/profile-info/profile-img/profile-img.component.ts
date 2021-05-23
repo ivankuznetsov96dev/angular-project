@@ -13,6 +13,6 @@ export class ProfileImgComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.userImg);
+    // console.log(this.userImg);
   }
 }

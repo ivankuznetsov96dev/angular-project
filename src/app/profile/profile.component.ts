@@ -43,9 +43,9 @@ export class ProfileComponent implements OnInit {
     if (this.router.url === '/profile') {
       this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
     }
-    console.log(this.route.snapshot.params.id);
-    console.log(this.route.snapshot.params);
-    console.log(this.route.snapshot.params.post);
+    // console.log(this.route.snapshot.params.id);
+    // console.log(this.route.snapshot.params);
+    // console.log(this.route.snapshot.params.post);
     localStorage.setItem('currentUserID', this.route.snapshot.params.id);
     if (localStorage.getItem('userLoginID') === localStorage.getItem('currentUserID')) {
       localStorage.removeItem('currentUserID');
@@ -205,7 +205,8 @@ export class ProfileComponent implements OnInit {
   public getObjByLocaleUserID(): void {
     this.counter = this.crudService
       .getObjectByRef('users', localStorage.getItem('userLoginID'))
-      .subscribe((value) => console.log(value));
+      .subscribe();
+      // .subscribe((value) => console.log(value));
   }
 
   public trackFunction(index, item): string {

@@ -96,9 +96,9 @@ export class FeedPostComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((value) => {
-      console.log('token feed-post');
-      console.log(this.route.snapshot.params);
-      console.log(this.router.url);
+      // console.log('token feed-post');
+      // console.log(this.route.snapshot.params);
+      // console.log(this.router.url);
       if (this.router.url === `/feed/${this.route.snapshot.params.post}`) {
         this.location.replaceState(`/feed`);
       }
@@ -109,9 +109,9 @@ export class FeedPostComponent implements OnInit {
   }
 
   public redirectOnSlectedUserProfile(id): void {
-    console.log(id);
+    // console.log(id);
     // localStorage.setItem('currentUserID', id);
-    console.log(this.router.url);
+    // console.log(this.router.url);
     this.router.navigate(['/profile', id]);
 
     // if (localStorage.getItem('userLoginID') === localStorage.getItem('currentUserID')) {

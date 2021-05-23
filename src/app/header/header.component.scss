@@ -33,6 +33,10 @@
       align-items: center;
       min-width: 500px;
 
+      .chip_inHint {
+        display: none;
+      }
+
       &.just_content {
         justify-content: space-between;
       }
@@ -61,9 +65,23 @@
   }
 }
 
+.example-card {
+  max-width: 600px;
+  min-width: 600px;
+  border-radius: 20px;
+}
+
 @media (max-width: 850px) {
   .input_search {
     min-width: 250px !important;
+
+    .chip {
+      display: none !important;
+    }
+
+    .chip_inHint {
+      display: initial !important;
+    }
   }
 }
 
@@ -76,5 +94,16 @@
 
   .searchMenu {
     display: initial !important;
+  }
+
+  .usersHint {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &>span {
+      display: initial !important;
+    }
   }
 }

@@ -86,6 +86,11 @@ export class LoginComponent implements OnInit {
         'add date in cards and comments. add coards and comments sort. add navigate limks. fixed bags. changed profile and feed filter',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/51cbdbe409dd6505bc4ecbb4f14e87ac93896bce',
       ],
+      [
+        '23.05.2021',
+        'add tag filter. fixed bags. fixed header',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/594a28195416e60e50beef9cc11c2f36147d57b7',
+      ],
     ]);
 
     // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));

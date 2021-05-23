@@ -43,14 +43,14 @@ export class FeedComponent implements OnInit, DoCheck {
     private route: ActivatedRoute,
     private location: Location,
   ) {
-    console.log(this.route.snapshot.params.post);
+    // console.log(this.route.snapshot.params.post);
     if (this.route.snapshot.params.post) {
       this.crudService
         .getObjectByRef('posts', this.route.snapshot.params.post)
         .subscribe((value) => {
           const openPostCard = value;
           openPostCard.id = this.route.snapshot.params.post;
-          console.log(openPostCard);
+          // console.log(openPostCard);
           this.crudService
             .getObjectByRef('users', openPostCard.userPostCreater)
             .subscribe((val) => {
@@ -174,7 +174,7 @@ export class FeedComponent implements OnInit, DoCheck {
     // this.counterUserPosts.concat(this.subsPosts);
     // this.filtredObj = this.counterObj.filter((el) => this.counterUserPosts.includes(el.id));
     const filtredComments = this.counterObj.filter((el) => this.counterUserPosts.includes(el.id));
-    console.log(filtredComments);
+    // console.log(filtredComments);
     // this.filtredObj = filtredComments;
 
     this.filtredObj = filtredComments.sort(function (prev, next) {
@@ -205,8 +205,8 @@ export class FeedComponent implements OnInit, DoCheck {
     });
 
     dialogRef.afterClosed().subscribe((value) => {
-      console.log('feed token');
-      console.log(this.route.snapshot.params);
+      // console.log('feed token');
+      // console.log(this.route.snapshot.params);
       if (this.router.url === `/feed/${this.route.snapshot.params.post}`) {
         this.location.replaceState(`/feed`);
       }

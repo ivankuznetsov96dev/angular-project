@@ -3,12 +3,35 @@
     <nav>
       <span class="logo">InstaClone</span>
       <div class="input_search">
-<!--           [ngStyle]="{}"-->
-<!--           [ngClass]="{just_content: searcher}">-->
+        <!--           [ngStyle]="{}"-->
+        <!--           [ngClass]="{just_content: searcher}">-->
         <input type="text" class="input" maxlength="30"
-               [(ngModel)]="searcher" (keydown.enter)="search()"
-               placeholder="search...">
+               [(ngModel)]="searcher" (keydown.enter)="search()" (ngModelChange)="userSearcher($event)"
+               placeholder="search..."
+               [matAutocomplete]="auto">
         <!--      <span>{{searcher}}</span>-->
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of usersHintCollections; trackBy:trackFunction;">
+<!--            mathcard-->
+            <div style="display: flex; align-items: center; justify-content: space-between" (click)="redirectOnSlectedUserProfile(option.email)">
+              <img style="height: 24px; width: 24px" src="{{option.user_avatar === ''? option.picture : option.user_avatar}}" alt="{{option.user_avatar}}">
+                <span style="font-size: x-small;">{{option.user_name === ''? option.name : option.user_name}}</span>
+<!--              <div style="display: flex; flex-direction: column">-->
+<!--                <span style="font-size: x-small;">{{option.email}}</span>-->
+<!--              </div>-->
+            </div>
+<!--            <mat-card class="example-card" (click)="redirectOnSlectedUserProfile()">-->
+<!--              <mat-card-header>-->
+<!--                <div mat-card-avatar class="example-header-image" [style.background-image]="'url('+  +')'"-->
+<!--                     style="cursor: pointer; margin-top: 4px"></div>-->
+<!--                <mat-card-title style="margin-bottom: 4px;">{{option.email}}</mat-card-title>-->
+<!--                <mat-card-subtitle>{{option.email}}</mat-card-subtitle>-->
+<!--              </mat-card-header>-->
+<!--            </mat-card>-->
+
+          </mat-option>
+        </mat-autocomplete>
+
         <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
           <mat-chip
             selected
@@ -30,9 +53,10 @@
         <mat-menu #searchMenu="matMenu">
           <input type="text" class="input" maxlength="30"
                  style="min-width: 262px; margin-bottom: 4px"
-                 [(ngModel)]="searcher" (keydown.enter)="search()"
+                 [(ngModel)]="searcher" (keydown.enter)="search()" (ngModelChange)="userSearcher($event)"
                  placeholder="search..."
-                 (click)="$event.stopPropagation();">
+                 (click)="$event.stopPropagation();"
+                  [matAutocomplete]="auto">
           <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection"
                          style="display: flex; justify-content: center;">
             <mat-chip
@@ -52,4 +76,120 @@
     </nav>
   </div>
 </div>
+
+
+<!--<div class="header">-->
+<!--  <div class="wrapper">-->
+<!--    <nav>-->
+<!--      <span class="logo">InstaClone</span>-->
+<!--      <div class="input_search">-->
+<!--&lt;!&ndash;           [ngStyle]="{}"&ndash;&gt;-->
+<!--&lt;!&ndash;           [ngClass]="{just_content: searcher}">&ndash;&gt;-->
+<!--&lt;!&ndash;               [(ngModel)]="searcher" (keydown.enter)="search()" (keypress)="userSearcher($event)"&ndash;&gt;-->
+<!--        <input type="text" class="input" maxlength="30"-->
+<!--               [matAutocomplete]="auto"-->
+<!--               [(ngModel)]="searcher" (keydown.enter)="search()" (ngModelChange)="userSearcher($event)"-->
+<!--               placeholder="search...">-->
+<!--        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">-->
+<!--          <mat-chip-list class="mat-chip-list-stacked chip" aria-label="Color selection">-->
+<!--            <mat-chip-->
+<!--              selected-->
+<!--              color="primary"-->
+<!--              maxlength="25"-->
+<!--              style="padding-right: 0"-->
+<!--              *ngIf="tag"-->
+<!--              (click)="deleteTag()">-->
+<!--              {{tag}}-->
+<!--              <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>-->
+<!--            </mat-chip>-->
+<!--          </mat-chip-list>-->
+<!--        <mat-option *ngFor="let option of usersHintCollections; trackBy:trackFunction;">-->
+<!--          {{option.user_name}}-->
+<!--          {{option.email}}-->
+<!--        </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--        &lt;!&ndash;      <span>{{searcher}}</span>&ndash;&gt;-->
+<!--        <mat-chip-list class="mat-chip-list-stacked chip_inHint" aria-label="Color selection">-->
+<!--          <mat-chip-->
+<!--            selected-->
+<!--            color="primary"-->
+<!--            maxlength="25"-->
+<!--            style="padding-right: 0"-->
+<!--            *ngIf="tag && windowSize"-->
+<!--            (click)="deleteTag()">-->
+<!--            {{tag}}-->
+<!--            <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>-->
+<!--          </mat-chip>-->
+<!--        </mat-chip-list>-->
+<!--      </div>-->
+
+<!--      <div style="display: flex">-->
+<!--&lt;!&ndash;        <button mat-icon-button class="searchMenu" [matMenuTriggerFor]="searchMenu" aria-label="Searcher menu">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-icon>find_in_page</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;        </button>&ndash;&gt;-->
+
+<!--        <button mat-icon-button class="searchMenu" aria-label="Searcher menu">-->
+<!--          <mat-icon>find_in_page</mat-icon>-->
+<!--          <input type="button" maxlength="30" style="display: none"-->
+<!--                 [matAutocomplete]="autoMobile"-->
+<!--                 value="Add to favorites">-->
+<!--        </button>-->
+
+<!--        <mat-autocomplete #autoMobile="matAutocomplete">-->
+<!--          <mat-chip-list class="mat-chip-list-stacked chip" aria-label="Color selection">-->
+<!--            <mat-chip-->
+<!--              selected-->
+<!--              color="primary"-->
+<!--              maxlength="25"-->
+<!--              style="padding-right: 0"-->
+<!--              *ngIf="tag"-->
+<!--              (click)="deleteTag()">-->
+<!--              {{tag}}-->
+<!--              <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>-->
+<!--            </mat-chip>-->
+<!--          </mat-chip-list>-->
+<!--          <mat-option *ngFor="let option of usersHintCollections; trackBy:trackFunction;"-->
+<!--                      (click)="$event.stopPropagation();"-->
+<!--          >-->
+<!--            {{option.user_name}}-->
+<!--            {{option.email}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+
+<!--&lt;!&ndash;        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-option *ngFor="let option of usersCollections; trackBy:trackFunction;">&ndash;&gt;-->
+<!--&lt;!&ndash;            {{option.user_name}}&ndash;&gt;-->
+<!--&lt;!&ndash;            {{option.email}}&ndash;&gt;-->
+<!--&lt;!&ndash;          </mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-autocomplete>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <mat-menu #searchMenu="matMenu">&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="text" class="input" maxlength="30"&ndash;&gt;-->
+<!--&lt;!&ndash;                 style="min-width: 262px; margin-bottom: 4px"&ndash;&gt;-->
+<!--&lt;!&ndash;                 [(ngModel)]="searcher" (keydown.enter)="search()"&ndash;&gt;-->
+<!--&lt;!&ndash;                 placeholder="search..."&ndash;&gt;-->
+<!--&lt;!&ndash;                 [matAutocomplete]="auto">&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <div class="usersHint" *ngFor="let option of usersHintCollections; trackBy:trackFunction;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span>{{option.email}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection"&ndash;&gt;-->
+<!--&lt;!&ndash;                         style="display: flex; justify-content: center;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <mat-chip&ndash;&gt;-->
+<!--&lt;!&ndash;              selected&ndash;&gt;-->
+<!--&lt;!&ndash;              color="primary"&ndash;&gt;-->
+<!--&lt;!&ndash;              maxlength="25"&ndash;&gt;-->
+<!--&lt;!&ndash;              style="width: auto; height: 20px; font-size: small;"&ndash;&gt;-->
+<!--&lt;!&ndash;              *ngIf="tag"&ndash;&gt;-->
+<!--&lt;!&ndash;              (click)="deleteTag()">&ndash;&gt;-->
+<!--&lt;!&ndash;              {{tag}}&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-icon matChipRemove (click)="deleteTag()">cancel</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-chip>&ndash;&gt;-->
+<!--&lt;!&ndash;          </mat-chip-list>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-menu>&ndash;&gt;-->
+<!--        <app-icon-nav></app-icon-nav>-->
+<!--      </div>-->
+<!--    </nav>-->
+<!--  </div>-->
+<!--</div>-->
 

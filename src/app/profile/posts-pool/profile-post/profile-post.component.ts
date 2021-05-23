@@ -19,6 +19,6 @@ export class ProfilePostComponent implements OnInit {
   ngOnInit(): void {
     this.postID = this.post.id;
     this.postImg = this.post.imageLink;
-    console.log(this.postID);
+    // console.log(this.postID);
   }
 }

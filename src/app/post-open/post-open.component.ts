@@ -43,7 +43,7 @@ export class PostOpenComponent implements OnInit {
 
     this.crud.handleData('comments').subscribe((value) => {
       this.allComments = value;
-      console.log(this.allComments);
+      // console.log(this.allComments);
     });
 
     this.crud.handleData('posts').subscribe(() => {
@@ -66,11 +66,11 @@ export class PostOpenComponent implements OnInit {
     const filtredComments = this.allComments.filter((element) =>
       Object.keys(this.user_comments).includes(element.id),
     );
-    console.log(filtredComments);
+    // console.log(filtredComments);
     this.sortedAndFiltredComments = filtredComments.sort(function (prev, next) {
       return next.time - prev.time;
     });
-    console.log(this.sortedAndFiltredComments);
+    // console.log(this.sortedAndFiltredComments);
   }
 
   // public concatMapFunc(array) {
@@ -102,7 +102,7 @@ export class PostOpenComponent implements OnInit {
   // }
 
   public pressSendBtn(): void {
-    console.log(this.area_text, this.data.card.id);
+    // console.log(this.area_text, this.data.card.id);
     this.crud
       .createEntity('comments', {
         time: new Date(),

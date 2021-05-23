@@ -16,7 +16,7 @@
 <!--    </button>-->
     <button mat-menu-item (click)="profileStatusChanger()">
       <mat-icon>receipt</mat-icon>
-      <span>Closed / Open profile: <u>{{profileStatus}}</u></span>
+      <span>Closed / Open profile: <u>{{profileStatus ? 'open' : 'closed'}}</u></span>
     </button>
 <!--    <button mat-menu-item>-->
 <!--      <mat-icon>receipt</mat-icon>-->

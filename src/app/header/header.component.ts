@@ -11,10 +11,10 @@ import {
 } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { CrudService } from '../services/crud.service';
-import {StorageService} from "../services/storage.service";
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -34,17 +34,51 @@ export class HeaderComponent implements OnInit {
 
   public usersCollections;
 
+  public usersHintCollections;
+
   public searcher: string;
 
   public tag: string;
 
+  public windowSize: boolean = false;
+
+  // public inputSubject: Subject<any> = new Subject<any>();
+
   constructor(
     private afs: AngularFirestore,
+    private route: ActivatedRoute,
     private crud: CrudService,
     private storageService: StorageService,
     private router: Router,
     private location: Location,
   ) {}
+
+  public userSearcher(event) {
+    const letterCount = this.searcher.toLowerCase();
+    this.usersHintCollections = [];
+
+    if (this.searcher === '' && this.searcher.length === 0) {
+      return;
+    }
+    this.usersHintCollections = this.usersCollections.filter((element) => {
+      if (element.user_name === '') {
+        return letterCount.includes(element.name.toLowerCase().slice(0, this.searcher.length));
+      } else {
+        return letterCount.includes(element.user_name.toLowerCase().slice(0, this.searcher.length));
+      }
+    });
+    // console.log(this.usersHintCollections);
+  }
+  public trackFunction(index, item): string {
+    return item.id;
+  }
+
+  public redirectOnSlectedUserProfile(id) {
+    localStorage.setItem('currentUserID', id);
+    this.location.replaceState(`/profile/${id}`);
+    window.location.reload();
+    // this.router.navigate(['/profile', id]);
+  }
 
   public search() {
     if (this.searcher.split('')[0] === '#') {
@@ -77,8 +111,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+    this.windowSize = window.innerWidth > 850 ? true : false;
     // this.crud.handleData('posts').subscribe((data) => this.storageService.books = data);
     // this.storageService.setTag(localStorage.getItem('tag'));
     // console.log(this.storageService.getTag());
