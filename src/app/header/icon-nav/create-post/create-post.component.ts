@@ -4,8 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { combineLatest } from 'rxjs';
 import { takeWhile, tap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UploadService } from '../../../services/upload.service';
-import { CrudService } from '../../../services/crud.service';
+import { UploadService } from '../../../services/upload/upload.service';
+import { CrudService } from '../../../services/crud/crud.service';
 
 @Component({
   selector: 'app-create-post',
@@ -96,7 +96,8 @@ export class CreatePostComponent implements OnInit {
 
   private initForm() {
     this.createNewPostReactiveForm = this.fb.group({
-      peoplesID: ['', [Validators.pattern(/^[A-z @_.-]+$/)]],
+      // peoplesID: ['', [Validators.pattern(/^[A-z @!#$_.,-]+$/)]],
+      peoplesID: ['', []],
       postTags: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
     });
   }

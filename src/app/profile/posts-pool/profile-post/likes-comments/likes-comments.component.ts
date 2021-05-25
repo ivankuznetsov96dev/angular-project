@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
-import { CrudService } from '../../../../services/crud.service';
+import { CrudService } from '../../../../services/crud/crud.service';
 
 @Component({
   selector: 'app-likes-comments',

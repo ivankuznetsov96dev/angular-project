@@ -3,7 +3,7 @@ import { formatDate, Location } from '@angular/common';
 import firebase from 'firebase';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { CrudService } from '../../services/crud.service';
+import { CrudService } from '../../services/crud/crud.service';
 import { Comment } from '../../services/interfaces/comment.model';
 
 @Component({
@@ -78,7 +78,7 @@ export class CommentComponent implements OnInit {
     this.crud.getObjectByRef('posts', this.comment.post_id).subscribe((value) => {
       const commentsMapCount = value.comments;
       delete commentsMapCount[this.comment.id];
-      console.log(commentsMapCount);
+      // console.log(commentsMapCount);
       this.crud
         .updateObjectWithUpdate('posts', this.comment.post_id, { comments: commentsMapCount })
         .subscribe(() => {

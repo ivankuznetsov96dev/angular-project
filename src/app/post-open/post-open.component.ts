@@ -1,10 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { concatMap, tap } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import { from, of, Subject, Subscription } from 'rxjs';
 import { formatDate, Location } from '@angular/common';
 import { Post } from '../services/interfaces/post.model';
-import { CrudService } from '../services/crud.service';
+import { CrudService } from '../services/crud/crud.service';
 
 @Component({
   selector: 'app-post-open',
@@ -31,6 +31,8 @@ export class PostOpenComponent implements OnInit {
 
   public postTimeData;
 
+  public postDeleteFlag: boolean;
+
   // public comments: {}[];
   //
   // public fullComment = [];
@@ -46,10 +48,12 @@ export class PostOpenComponent implements OnInit {
       // console.log(this.allComments);
     });
 
-    this.crud.handleData('posts').subscribe(() => {
+    this.crud.handleData('posts').subscribe((val) => {
+      this.checkLivePost(val);
       this.crud.getObjectByRef('posts', this.data.card.id).subscribe((value) => {
         // this.user_comments = Object.keys(value.comments);
         this.user_comments = value.comments;
+        // console.log(value);
         // console.log(this.user_comments);
         this.commentsFilter();
         // this.fullComment.splice(0, this.fullComment.length);
@@ -58,9 +62,15 @@ export class PostOpenComponent implements OnInit {
     });
   }
 
-  // ngDoCheck(): void {
-  //   this.commentsFilter();
-  // }
+  public checkLivePost(array) {
+    this.postDeleteFlag = array.some((obj) => {
+      return obj.id === this.data.card.id;
+    });
+    if (this.postDeleteFlag === false) {
+      // console.log('post deleted');
+      this.dialog.closeAll();
+    }
+  }
 
   public commentsFilter(): void {
     const filtredComments = this.allComments.filter((element) =>

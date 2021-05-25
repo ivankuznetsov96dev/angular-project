@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../../services/interfaces/user.model';
-import { CrudService } from '../../../services/crud.service';
-import {StorageService} from "../../../services/storage.service";
+import { CrudService } from '../../../services/crud/crud.service';
+import {StorageService} from "../../../services/storage/storage.service";
 
 @Component({
   selector: 'app-profile-info-counters',

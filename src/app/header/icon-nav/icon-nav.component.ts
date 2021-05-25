@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth/auth.service';
-import { CrudService } from '../../services/crud.service';
+import { CrudService } from '../../services/crud/crud.service';
 import { FormInfoChangerDialogComponent } from '../../profile/profile-info/form-info-changer-dialog/form-info-changer-dialog.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { User } from '../../services/interfaces/user.model';

@@ -40,6 +40,17 @@ img {
   cursor: pointer;
 }
 
+.saveBtn {
+  &.like {
+    color: red;
+    border-bottom: red 1px solid;
+  }
+
+  &.default {
+    color: #272727;
+  }
+}
+
 @media (max-width: 600px) {
   .example-card {
     min-width: 375px;

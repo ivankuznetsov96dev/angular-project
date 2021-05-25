@@ -1,10 +1,10 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { combineLatest } from 'rxjs';
 import { takeWhile, tap } from 'rxjs/operators';
-import { UploadService } from '../../../services/upload.service';
-import { CrudService } from '../../../services/crud.service';
+import { UploadService } from '../../../services/upload/upload.service';
+import { CrudService } from '../../../services/crud/crud.service';
 
 @Component({
   selector: 'app-form-info-changer-dialog',
@@ -47,7 +47,7 @@ export class FormInfoChangerDialogComponent implements OnInit {
       Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
       return;
     }
-    console.log(this.userInfoReactiveForm.value);
+    // console.log(this.userInfoReactiveForm.value);
     // this.crudService
     //   .getObjectByRef('users', localStorage.getItem('userLoginID'))
     //   .subscribe((value) => {
@@ -104,7 +104,7 @@ export class FormInfoChangerDialogComponent implements OnInit {
       userInfo: [
         '',
         [
-          Validators.required,
+          // Validators.required,
           // Validators.pattern(/^[A-z _.-]+$/)
         ],
       ],

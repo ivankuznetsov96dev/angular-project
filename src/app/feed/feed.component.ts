@@ -2,14 +2,13 @@ import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/c
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
-import { element } from 'protractor';
 import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
 import { AuthService } from '../services/auth/auth.service';
-import { CrudService } from '../services/crud.service';
-import { UploadService } from '../services/upload.service';
-import { StorageService } from '../services/storage.service';
+import { CrudService } from '../services/crud/crud.service';
+import { UploadService } from '../services/upload/upload.service';
+import { StorageService } from '../services/storage/storage.service';
 import { Post } from '../services/interfaces/post.model';
 import { PostOpenComponent } from '../post-open/post-open.component';
 
@@ -125,9 +124,7 @@ export class FeedComponent implements OnInit, DoCheck {
       if (value !== null) {
         this.addTag = value;
         const count = this.filtredObj;
-        const newCount = count.filter((element) =>
-          this.addTag.includes(element.postTags),
-        );
+        const newCount = count.filter((element) => this.addTag.includes(element.postTags));
         this.filtredObj = newCount;
       } else {
         this.filtredObj = this.filtredObjSave;

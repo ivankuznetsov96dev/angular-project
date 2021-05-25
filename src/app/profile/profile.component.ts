@@ -6,10 +6,10 @@ import { map, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
-import { CrudService } from '../services/crud.service';
+import { CrudService } from '../services/crud/crud.service';
 import { AuthService } from '../services/auth/auth.service';
-import { UploadService } from '../services/upload.service';
-import { StorageService } from '../services/storage.service';
+import { UploadService } from '../services/upload/upload.service';
+import { StorageService } from '../services/storage/storage.service';
 import { PostOpenComponent } from '../post-open/post-open.component';
 
 @Component({
@@ -38,7 +38,6 @@ export class ProfileComponent implements OnInit {
     private crudService: CrudService,
     private fb: FormBuilder,
     private uploadService: UploadService,
-    private storageService: StorageService,
   ) {
     if (this.router.url === '/profile') {
       this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
@@ -101,20 +100,17 @@ export class ProfileComponent implements OnInit {
   public counter;
 
   ngOnInit(): void {
-    // this.firestore.collection('picture').valueChanges().subscribe(value=> {
-    //   this.counterObj = value;
-    //   console.log(...this.counterObj);
-    // });
-
-    // this.counter = this.crudService.getObjectByRef('users', localStorage.getItem('userLoginID')).subscribe();
-    // console.log(this.counter)
-
     this.crudService
       .getObjectByRef('users', localStorage.getItem('userLoginID'))
       .subscribe((value) => {
         if (value.user_posts === undefined) {
           this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
             user_posts: {},
+          });
+        }
+        if (value.user_savePosts === undefined) {
+          this.crudService.updateObject('users', localStorage.getItem('userLoginID'), {
+            user_savePosts: {},
           });
         }
         if (value.user_avatar === undefined) {
@@ -149,105 +145,89 @@ export class ProfileComponent implements OnInit {
         }
       });
 
-    this.getObjByLocaleUserID();
+    // this.getObjByLocaleUserID();
 
     // this.crudService.handleData('posts').subscribe(data => this.storageService.books = data);
 
     // this.storageService.books$.subscribe(value => console.log(value))
     // this.storageService.books$.subscribe();
 
-    this.crudService.handleData('posts').subscribe((value) => {
-      this.counterObj = value;
-      // console.log(value);
-      // console.log(...this.counterObj);
-    });
+    // this.crudService.handleData('posts').subscribe((value) => {
+    //   this.counterObj = value;
+    //   // console.log(value);
+    //   // console.log(...this.counterObj);
+    // });
 
-    this.initForm();
+    // this.initForm();
   }
 
   // getBooks() {
   //   console.log(this.storageService.books);
   // }
 
-  public addFirebaseToken(): void {
-    this.crudService
-      .createEntity('picture', {
-        img:
-          'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg',
-      })
-      .subscribe((value) => console.log(value));
-  }
+  // public addFirebaseToken(): void {
+  //   this.crudService
+  //     .createEntity('picture', {
+  //       img:
+  //         'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg',
+  //     })
+  //     .subscribe((value) => console.log(value));
+  // }
 
-  public deleteFirebaseToken(): void {
-    // this.crudService.createEntity('picture', {img: 'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg'}).subscribe(value => console.log(value));
-    // this.crudService.createEntity('picture', {model: 'bmv', lastName: 'qweqfqfq'})
-    //   .pipe(
-    //     tap(value => console.log(value))
-    //   )
-    //   .subscribe();
+  // public deleteFirebaseToken(): void {
+  //       this.crudService.deleteObject('posts', this.counterObj[this.counterObj.length - 1].id);
+  // }
 
-    // .pipe(
-    // tap(value => console.log(value)),
-    // switchMap(value => {
-    //   return this.crudService.updateObject('picture', value, {'name': 'test2', 'sur': 'test3'}).pipe(map(() => value))
-    // }),
-    // switchMap(value => this.crudService.deleteObject('picture', value))
+  // public delTappedBaseToken(id): void {
+  //   this.crudService.deleteObject('posts', id);
+  // }
 
-    // this.crudService.handleData('picture').subscribe(value => console.log(value));
+  // public getObjByLocaleUserID(): void {
+  //   this.counter = this.crudService
+  //     .getObjectByRef('users', localStorage.getItem('userLoginID'))
+  //     .subscribe();
+  //     // .subscribe((value) => console.log(value));
+  // }
 
-    this.crudService.deleteObject('posts', this.counterObj[this.counterObj.length - 1].id);
-  }
+  // public trackFunction(index, item): string {
+  //   return item.id;
+  // }
 
-  public delTappedBaseToken(id): void {
-    this.crudService.deleteObject('posts', id);
-  }
+  // onSubmit() {
+  //   const { controls } = this.myFirstReactiveForm;
+  //   if (this.myFirstReactiveForm.invalid) {
+  //     Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
+  //     return;
+  //   }
+  //   console.log(this.myFirstReactiveForm.value);
+  // }
 
-  public getObjByLocaleUserID(): void {
-    this.counter = this.crudService
-      .getObjectByRef('users', localStorage.getItem('userLoginID'))
-      .subscribe();
-      // .subscribe((value) => console.log(value));
-  }
+  // isControlInvalid(controlName: string): boolean {
+  //   const control = this.myFirstReactiveForm.controls[controlName];
+  //   const result = control.invalid && control.touched;
+  //   return result;
+  // }
 
-  public trackFunction(index, item): string {
-    return item.id;
-  }
+  // private initForm() {
+  //   this.myFirstReactiveForm = this.fb.group({
+  //     name: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
+  //     userTag: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
+  //   });
+  // }
 
-  onSubmit() {
-    const { controls } = this.myFirstReactiveForm;
-    if (this.myFirstReactiveForm.invalid) {
-      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-      return;
-    }
-    console.log(this.myFirstReactiveForm.value);
-  }
-
-  isControlInvalid(controlName: string): boolean {
-    const control = this.myFirstReactiveForm.controls[controlName];
-    const result = control.invalid && control.touched;
-    return result;
-  }
-
-  private initForm() {
-    this.myFirstReactiveForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
-      userTag: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
-    });
-  }
-
-  public onFileSelected(event): void {
-    const file = event.target.files[0];
-    combineLatest(this.uploadService.uploadFile('test', file))
-      .pipe(
-        tap(([percent, link]) => {
-          this.progress = percent.toString();
-          console.log(link);
-          // this.imageLink = link;
-        }),
-        takeWhile(([percent, link]) => !link),
-      )
-      .subscribe();
-  }
+  // public onFileSelected(event): void {
+  //   const file = event.target.files[0];
+  //   combineLatest(this.uploadService.uploadFile('test', file))
+  //     .pipe(
+  //       tap(([percent, link]) => {
+  //         this.progress = percent.toString();
+  //         console.log(link);
+  //         // this.imageLink = link;
+  //       }),
+  //       takeWhile(([percent, link]) => !link),
+  //     )
+  //     .subscribe();
+  // }
 
   public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
     const dialogRef = this.dialog.open(PostOpenComponent, {

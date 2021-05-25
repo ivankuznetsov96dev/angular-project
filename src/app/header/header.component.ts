@@ -13,8 +13,8 @@ import { ajax } from 'rxjs/ajax';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
-import { CrudService } from '../services/crud.service';
-import { StorageService } from '../services/storage.service';
+import { CrudService } from '../services/crud/crud.service';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-header',

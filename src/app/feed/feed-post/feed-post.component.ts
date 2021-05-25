@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import {formatDate, Location} from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { Post } from '../../services/interfaces/post.model';
-import { CrudService } from '../../services/crud.service';
+import { CrudService } from '../../services/crud/crud.service';
 import { PostOpenComponent } from '../../post-open/post-open.component';
 
 @Component({
@@ -18,6 +18,8 @@ export class FeedPostComponent implements OnInit {
   @Input() card: Post;
 
   public imgFlag = false;
+
+  public colorCounter = false;
 
   public postCreater: string;
 
@@ -126,4 +128,8 @@ export class FeedPostComponent implements OnInit {
     //   window.location.reload();
     // }
   }
+
+  // public savePost() {
+  //   this.colorCounter = !this.colorCounter;
+  // }
 }

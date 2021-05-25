@@ -8,7 +8,8 @@ export interface User {
   name: string;
   picture?: string;
   verified_email?: boolean;
-  user_posts?: string[];
+  user_posts?: {};
+  user_savePosts?: {};
   user_signed?: {};
   user_subs?: {};
   profile_status?: boolean;

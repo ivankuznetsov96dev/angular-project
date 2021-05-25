@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../../services/interfaces/user.model';
-import { CrudService } from '../../../services/crud.service';
+import { CrudService } from '../../../services/crud/crud.service';
 
 @Component({
   selector: 'app-follow-btn',

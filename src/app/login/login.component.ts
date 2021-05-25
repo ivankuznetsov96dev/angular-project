@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
-import { CrudService } from '../services/crud.service';
+import { CrudService } from '../services/crud/crud.service';
 
 @Component({
   selector: 'app-login',
@@ -88,8 +88,13 @@ export class LoginComponent implements OnInit {
       ],
       [
         '23.05.2021',
-        'add tag filter. fixed bags. fixed header',
+        'add tag filter. fixed bags. fixed header.',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/594a28195416e60e50beef9cc11c2f36147d57b7',
+      ],
+      [
+        '23.05.2021',
+        'add user searcher. fixed bags. fixed header input in mobile',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/05fb0a61e8945a33e5ad7d40990745d87d1dfcfe',
       ],
     ]);
 

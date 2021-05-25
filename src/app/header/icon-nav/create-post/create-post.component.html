@@ -34,13 +34,13 @@
 
         <mat-form-field class="form-field">
           <mat-label for="postTags">Add tags:</mat-label>
-          <input matInput type="text" id="postTags" formControlName="postTags" maxlength="30">
+          <input matInput type="text" id="postTags" formControlName="postTags" maxlength="29">
           <!--      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">-->
           <!--        <mat-icon>close</mat-icon>-->
           <!--      </button>-->
         </mat-form-field>
         <div class="error" *ngIf="isControlInvalid('postTags')">
-          Input valid user tag, included "#", "A-z", "-", ".", "_"
+          Input valid user tag, included "A-z", "-", ".", "_"
         </div>
         <br/><br/>
 

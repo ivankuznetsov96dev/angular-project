@@ -36,9 +36,6 @@ import { FeedComponent } from './feed/feed.component';
 import { FeedPostComponent } from './feed/feed-post/feed-post.component';
 import { FormInfoChangerDialogComponent } from './profile/profile-info/form-info-changer-dialog/form-info-changer-dialog.component';
 import { CreatePostComponent } from './header/icon-nav/create-post/create-post.component';
-import { ZoomDirective } from './services/zoom.directive';
-import { DoubleContentDirective } from './services/double-content.directive';
-import { DialogComponent } from './dialog/dialog.component';
 import { PostOpenComponent } from './post-open/post-open.component';
 import { CommentComponent } from './post-open/comment/comment.component';
 import '@angular/common/locales/global/ru';
@@ -61,9 +58,6 @@ import '@angular/common/locales/global/ru';
     FeedPostComponent,
     FormInfoChangerDialogComponent,
     CreatePostComponent,
-    ZoomDirective,
-    DoubleContentDirective,
-    DialogComponent,
     PostOpenComponent,
     CommentComponent,
   ],
