@@ -20,19 +20,12 @@ export class ProfileInfoCountersComponent implements OnInit, OnChanges {
   constructor(private crudService: CrudService, private storageService: StorageService) {}
 
   ngOnInit(): void {
-    // this.crudService.getObjectByRef('users', this.user.email).subscribe(value => {
-    //   this.publicationsCounter = value['user_posts'].length;
-    // });
-    // this.publicationsCounter = this.user.user_posts.length;
-    // console.log(this.user);
     this.publicationsCounter = Object.keys(this.user.user_posts).length;
     this.subsCounter = Object.keys(this.user.user_subs).length;
     this.signedCounter = Object.keys(this.user.user_signed).length;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // this.publicationsCounter = this.user.user_posts.length;
-    // this.storageService.tag$.subscribe((value) => console.log(value));
     this.storageService.tag$.subscribe();
     this.publicationsCounter = Object.keys(this.user.user_posts).length;
     this.subsCounter = Object.keys(this.user.user_subs).length;

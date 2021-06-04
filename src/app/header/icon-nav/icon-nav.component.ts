@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth/auth.service';
@@ -6,13 +6,15 @@ import { CrudService } from '../../services/crud/crud.service';
 import { FormInfoChangerDialogComponent } from '../../profile/profile-info/form-info-changer-dialog/form-info-changer-dialog.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { User } from '../../services/interfaces/user.model';
+import {Location} from "@angular/common";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-icon-nav',
   templateUrl: './icon-nav.component.html',
   styleUrls: ['./icon-nav.component.scss'],
 })
-export class IconNavComponent implements OnInit {
+export class IconNavComponent implements OnInit, OnDestroy {
   public userInfo: User;
 
   public user_avatar: string;
@@ -20,15 +22,18 @@ export class IconNavComponent implements OnInit {
   public lang = 'en';
   public profileStatus: boolean;
 
+  public dest: Subscription;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private crudService: CrudService,
     private dialog: MatDialog,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
-    this.crudService.handleData('users').subscribe(() => {
+    this.dest = this.crudService.handleData('users').subscribe(() => {
       this.crudService
         .getObjectByRef('users', localStorage.getItem('userLoginID'))
         .subscribe((value) => {
@@ -64,14 +69,24 @@ export class IconNavComponent implements OnInit {
   }
 
   public goToProfile(): void {
-    localStorage.removeItem('currentUserID');
-    console.log(this.router.url);
+    // console.log(this.router.url);
 
-    if (this.router.url === '/profile') {
+
+    // localStorage.removeItem('currentUserID');
+    // this.router.navigate([`/profile/${localStorage.getItem('userLoginID')}`]);
+
+    if (this.router.url === `/profile/${localStorage.getItem('currentUserID')}`) {
+      // console.log('ti v profile');
+      // this.router.navigate([`/profile/${localStorage.getItem('userLoginID')}`]);
+      localStorage.removeItem('currentUserID');
+      this.location.replaceState(`/profile/${localStorage.getItem('userLoginID')}`);
       window.location.reload();
     } else {
-      this.router.navigate(['/profile']);
+      // this.router.navigate(['/profile']);
+      localStorage.removeItem('currentUserID');
+      this.router.navigate([`/profile/${localStorage.getItem('userLoginID')}`]);
     }
+
     // localStorage.removeItem('currentUserID');
     // console.log(this.router.url);
 
@@ -116,5 +131,9 @@ export class IconNavComponent implements OnInit {
 
   public openDialog(): void {
     this.dialog.open(CreatePostComponent);
+  }
+
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
   }
 }

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { concatMap, tap } from 'rxjs/operators';
 import { from, of, Subject, Subscription } from 'rxjs';
 import { formatDate, Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../services/interfaces/post.model';
 import { CrudService } from '../services/crud/crud.service';
 
@@ -11,12 +12,14 @@ import { CrudService } from '../services/crud/crud.service';
   templateUrl: './post-open.component.html',
   styleUrls: ['./post-open.component.scss'],
 })
-export class PostOpenComponent implements OnInit {
+export class PostOpenComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private crud: CrudService,
     private dialog: MatDialog,
     private location: Location,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   public area_text: string;
@@ -33,6 +36,10 @@ export class PostOpenComponent implements OnInit {
 
   public postDeleteFlag: boolean;
 
+  public dest: Subscription;
+
+  public subDest: Subscription;
+
   // public comments: {}[];
   //
   // public fullComment = [];
@@ -43,12 +50,12 @@ export class PostOpenComponent implements OnInit {
     }
     this.postTimeData = formatDate(this.data.card.postTime.toDate(), 'MMM d, y, h:mm a', 'en-US');
 
-    this.crud.handleData('comments').subscribe((value) => {
+    this.dest = this.crud.handleData('comments').subscribe((value) => {
       this.allComments = value;
       // console.log(this.allComments);
     });
 
-    this.crud.handleData('posts').subscribe((val) => {
+    this.subDest = this.crud.handleData('posts').subscribe((val) => {
       this.checkLivePost(val);
       this.crud.getObjectByRef('posts', this.data.card.id).subscribe((value) => {
         // this.user_comments = Object.keys(value.comments);
@@ -129,8 +136,25 @@ export class PostOpenComponent implements OnInit {
 
   public moveOnProfile(id): void {
     this.dialog.closeAll();
-    this.location.replaceState(`/profile/${id}`);
-    window.location.reload();
+    if (
+      id === localStorage.getItem('userLoginID') &&
+      this.router.url === `/profile/${localStorage.getItem('userLoginID')}`
+    ) {
+      return;
+    }
+    localStorage.setItem('currentUserID', id);
+    if (this.router.url === '/feed') {
+      this.router.navigate(['/profile', id]);
+    } else {
+      this.location.replaceState(`/profile/${id}`);
+      window.location.reload();
+    }
+    // if (this.route.snapshot.params.id === '/feed') {
+    //   this.router.navigate([`/profile/${id}`]);
+    // } else {
+    //   this.location.replaceState(`/profile/${id}`);
+    //   window.location.reload();
+    // }
   }
 
   public deletePost(): void {
@@ -146,5 +170,10 @@ export class PostOpenComponent implements OnInit {
 
   public trackFunction(index, item): string {
     return item.id;
+  }
+
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
+    this.subDest.unsubscribe();
   }
 }

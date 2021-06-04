@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { CrudService } from '../../../../services/crud/crud.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { CrudService } from '../../../../services/crud/crud.service';
   templateUrl: './likes-comments.component.html',
   styleUrls: ['./likes-comments.component.scss'],
 })
-export class LikesCommentsComponent implements OnInit {
+export class LikesCommentsComponent implements OnInit, OnDestroy {
   @Input() postLikes;
 
   @Input() postID;
@@ -23,29 +24,15 @@ export class LikesCommentsComponent implements OnInit {
 
   public test;
 
+  public dest: Subscription;
+
   constructor(private firestoreService: AngularFirestore, private crudService: CrudService) {}
 
   ngOnInit(): void {
-    // console.log(this.postLikes)
-    // this.likesCounter = Object.keys(this.postLikes).length;
-    // console.log(this.likesCounter)
-
-    // this.test = this.firestoreService.collection('posts').doc(this.postID).valueChanges();
-    // this.test.subscribe((value) => console.log(value));
-
-    // this.crudService.getHandleData('posts', this.postID).subscribe((value) => {
-    //   this.test = Object.keys(value[0]['likes']).length;
-    //   console.log(this.test);
-    // });
-
-    this.crudService.handleData('posts').subscribe(() => {
+    this.dest = this.crudService.handleData('posts').subscribe(() => {
       this.getLikes();
     });
-
-    // this.getLikes();
   }
-
-  // localStorage.getItem('userLoginID')
 
   public getLikes(): void {
     this.crudService.getObjectByRef('posts', this.postID).subscribe((value) => {
@@ -69,17 +56,6 @@ export class LikesCommentsComponent implements OnInit {
   }
 
   public checkLikesCounter(): void {
-    // this.crudService.getObjectByRef('posts', this.postID).subscribe(value => {
-    //   this.postCount = value['likes'];
-    //   console.log(this.counterUserPosts);
-    // });
-
-    // this.crudService.getObjectByRef('posts', this.postID).subscribe(value => {
-    //   // console.log(value)
-    //   this.postCount = value['likes'];
-    //   console.log(this.postCount);
-    // });
-
     if (this.postCount[localStorage.getItem('userLoginID')]) {
       delete this.postCount[localStorage.getItem('userLoginID')];
       this.crudService.updateObjectWithUpdate('posts', this.postID, { likes: this.postCount });
@@ -91,19 +67,9 @@ export class LikesCommentsComponent implements OnInit {
       this.likesCounter = Object.keys(this.postCount).length;
       this.changerBtnColor();
     }
+  }
 
-    // if (!this.postLikes[`${localStorage.getItem('userLoginID')}`]) {
-    //   this.crudService.updateObject('posts', this.postID, {
-    //     'likes': `${localStorage.getItem('userLoginID')}`
-    //   });
-    //   this.likesCounter = Object.keys(this.postLikes).length;
-    // }
-
-    // this.firestoreService.collection('posts').doc(this.postID).collection('likes')
-    //   .get().pipe(take(1))
-    //   .subscribe(value => {
-    //     this.postCount = value;
-    //     console.log(this.postCount);
-    //   })
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
   }
 }

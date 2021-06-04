@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate, Location } from '@angular/common';
 import { Post } from '../../services/interfaces/post.model';
 import { CrudService } from '../../services/crud/crud.service';
 import { PostOpenComponent } from '../../post-open/post-open.component';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-feed-post',
   templateUrl: './feed-post.component.html',
   styleUrls: ['./feed-post.component.scss'],
 })
-export class FeedPostComponent implements OnInit {
+export class FeedPostComponent implements OnInit, OnDestroy {
   // public peoplesID;
   // public postTags;
 
@@ -30,6 +31,8 @@ export class FeedPostComponent implements OnInit {
   public postTime;
 
   public postTimeData;
+
+  public dest: Subscription;
 
   // @Input() postID: string;
   // @Input() postImg: string;
@@ -55,7 +58,7 @@ export class FeedPostComponent implements OnInit {
   }
 
   public getUserInfo(): void {
-    this.crudService.handleData('users').subscribe(() => {
+    this.dest = this.crudService.handleData('users').subscribe(() => {
       this.crudService.getObjectByRef('users', this.card.userPostCreater).subscribe((value) => {
         if (value.user_name !== '') {
           this.postCreater = value.user_name;
@@ -127,6 +130,10 @@ export class FeedPostComponent implements OnInit {
     // } else {
     //   window.location.reload();
     // }
+  }
+
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
   }
 
   // public savePost() {

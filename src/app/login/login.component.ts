@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth/auth.service';
 import { CrudService } from '../services/crud/crud.service';
 
@@ -96,24 +95,12 @@ export class LoginComponent implements OnInit {
         'add user searcher. fixed bags. fixed header input in mobile',
         'https://github.com/ivankuznetsov96dev/angular-project/commit/05fb0a61e8945a33e5ad7d40990745d87d1dfcfe',
       ],
+      [
+        '25.05.2021',
+        'fix bags. add close deleted post. code refactoring.',
+        'https://github.com/ivankuznetsov96dev/angular-project/commit/5709393cb20dd12c84fbdce0b86048bf799c47cd',
+      ],
     ]);
-
-    // this.firestore.doc('/users/ivan.kuznetsov.dev@gmail.com').get().subscribe(value => console.log(value));
-    // this.crudService.getTest('/users/ivan.kuznetsov.dev@gmail.com').subscribe(value => console.log(value));
-
-    // (this.firestore.collection('users').doc('nevi.kiv@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
-    // (this.firestore.collection('users').doc('kivfox.kuznetsov@gmail.com').get()).pipe(map(value => value.exists)).subscribe(value => console.log(value));
-
-    // this.firestore.collection('users').doc('nevi.kiv@gmail.com').get().subscribe(value => console.log(value.exists))
-
-    // this.crudService.handleData('users').subscribe(value => console.log(value));
-    // this.crudService.getObjectByRef('users', 'ivan.kuznetsov.dev@gmail.com').subscribe(value => console.log(value));
-    // this.crudService.getObjectByRef('users', 'kivfox.kuznetsov@gmail.com').subscribe(value => console.log(value));
-    // if (this.crudService.getObjectByRef('users', 'ivan.kuznetsov.dev@gmail.com')) {
-    //   console.log('this is true')
-    // } else {
-    //   console.log('this is false')
-    // }
   }
 
   public goTo(): void {
@@ -121,16 +108,5 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
       // this.router.navigate([`/profile`]);
     });
-    // this.authService.googleSign();
-    // this.router.navigate(['/profile']);
-
-    // this.crudService.createEntity('testbase', {model: 'bmv'}).subscribe(value => console.log(value))
-    // this.crudService.createEntity('testbase', {model: 'bmv', lastName: 'qweqfqfq'}).pipe(
-    //   tap(value => console.log(value)),
-    //   switchMap(value => {
-    //     return this.crudService.updateObject('testbase', value, {'name': 'test2', 'sur': 'test3'}).pipe(map(() => value))
-    //   }),
-    //   // switchMap(value => this.crudService.deleteObject('testbase', value))
-    // ).subscribe();
   }
 }

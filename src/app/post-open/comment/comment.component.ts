@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { formatDate, Location } from '@angular/common';
 import firebase from 'firebase';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { CrudService } from '../../services/crud/crud.service';
 import { Comment } from '../../services/interfaces/comment.model';
 
@@ -11,7 +12,7 @@ import { Comment } from '../../services/interfaces/comment.model';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit, OnDestroy {
   constructor(
     private crud: CrudService,
     private router: Router,
@@ -34,10 +35,12 @@ export class CommentComponent implements OnInit {
 
   public comment_time;
 
+  public dest: Subscription;
+
   public today;
 
   ngOnInit(): void {
-    this.crud.handleData('users').subscribe(() => {
+    this.dest = this.crud.handleData('users').subscribe(() => {
       this.crud.getObjectByRef('users', this.comment.comment_creater).subscribe((value) => {
         // this.comment_time = this.comment.time.toDate();
         this.comment_time = formatDate(this.comment.time.toDate(), 'MMM d, y, h:mm a', 'en-US');
@@ -89,8 +92,21 @@ export class CommentComponent implements OnInit {
 
   public moveOnProfile(id): void {
     this.dialog.closeAll();
-    this.location.replaceState(`/profile/${id}`);
-    window.location.reload();
-    // this.router.navigate(['/profile', id]);
+    if (
+      id === localStorage.getItem('userLoginID') &&
+      this.router.url === `/profile/${localStorage.getItem('userLoginID')}`
+    ) {
+      return;
+    }
+    if (this.router.url === '/feed') {
+      this.router.navigate(['/profile', id]);
+    } else {
+      this.location.replaceState(`/profile/${id}`);
+      window.location.reload();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
   }
 }

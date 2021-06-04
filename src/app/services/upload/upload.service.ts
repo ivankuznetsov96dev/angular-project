@@ -15,6 +15,16 @@ export class UploadService {
   ): [percent: Observable<number>, link: Observable<any>] {
     // const {name} = file;
     const { name } = file;
+    const count = name.split('.');
+    const fileType = ['jpg', 'jpeg', 'png', 'gif'];
+    const fileFlag = fileType.some((type) => {
+      // console.log(type, type === count[count.length - 1]);
+      return type === count[count.length - 1];
+    });
+    if (!fileFlag) {
+      // console.log('this is not picture');
+      return null;
+    }
     const filePath = `${folder}/${new Date().getTime()}_${name}`;
     const task: AngularFireUploadTask = this.storage.upload(filePath, file);
     return [task.percentageChanges(), this.getLink(task, filePath).pipe(startWith(null))];

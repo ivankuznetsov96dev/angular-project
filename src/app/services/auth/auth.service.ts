@@ -14,28 +14,14 @@ export class AuthService {
   public flag: boolean;
 
   public user$: Observable<firebase.User | null>;
-  // public user$: Observable<any>;
 
   constructor(
-    // private angAuthService: AngularFireAuth,
-    // private afs: AngularFirestore,
-    // private crudService: CrudService
     private angAuthService: AngularFireAuth,
     private crudService: CrudService,
     private firestoreService: AngularFirestore,
   ) {
     this.user$ = this.angAuthService.authState;
   }
-
-  // public googleSign(): Observable<auth.UserCredential> {
-  //   const provider = new auth.GoogleAuthProvider();
-  //   return from(this.angAuthService.signInWithPopup(provider)).pipe(
-  //     tap((authUser: auth.UserCredential) => {
-  //       console.log(authUser);
-  //     }),
-  //     take(1),
-  //   );
-  // }
 
   public googleSign(): Observable<auth.UserCredential> {
     const provider = new auth.GoogleAuthProvider();

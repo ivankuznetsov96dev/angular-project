@@ -5,12 +5,14 @@ import {
   ViewEncapsulation,
   OnChanges,
   SimpleChanges,
+  OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 import { CrudService } from '../../services/crud/crud.service';
 import { UploadService } from '../../services/upload/upload.service';
@@ -24,7 +26,7 @@ import { PostOpenComponent } from '../../post-open/post-open.component';
   styleUrls: ['./posts-pool.component.scss'],
 })
 // export class PostsPoolComponent implements OnInit {
-export class PostsPoolComponent implements OnInit, DoCheck {
+export class PostsPoolComponent implements OnInit, DoCheck, OnDestroy {
   public counterObj;
 
   public profileStatus: boolean;
@@ -36,6 +38,8 @@ export class PostsPoolComponent implements OnInit, DoCheck {
   public filtredObj: Post[];
 
   public filtredObjSave: Post[];
+
+  public dest: Subscription;
 
   constructor(
     private router: Router,
@@ -57,7 +61,7 @@ export class PostsPoolComponent implements OnInit, DoCheck {
     // });
     // this.filtrPipe();
 
-    this.crudService.handleData('posts').subscribe((value) => {
+    this.dest = this.crudService.handleData('posts').subscribe((value) => {
       this.counterObj = value;
       this.filtrPipe();
     });
@@ -163,5 +167,9 @@ export class PostsPoolComponent implements OnInit, DoCheck {
         this.location.replaceState(`/profile/${this.route.snapshot.params.id}`);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
   }
 }

@@ -28,6 +28,8 @@ export class ProfileComponent implements OnInit {
 
   public userCount;
 
+  public profileFlag = false;
+
   constructor(
     private router: Router,
     private dialog: MatDialog,
@@ -48,6 +50,7 @@ export class ProfileComponent implements OnInit {
     localStorage.setItem('currentUserID', this.route.snapshot.params.id);
     if (localStorage.getItem('userLoginID') === localStorage.getItem('currentUserID')) {
       localStorage.removeItem('currentUserID');
+      this.profileFlag = true;
     }
 
     if (localStorage.getItem('currentUserID')) {
@@ -56,9 +59,12 @@ export class ProfileComponent implements OnInit {
         .subscribe((value) => {
           if (value === undefined) {
             localStorage.removeItem('currentUserID');
-            // this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
-            this.location.replaceState(`/profile/${localStorage.getItem('userLoginID')}`);
-            window.location.reload();
+            this.router.navigate(['/profile', localStorage.getItem('userLoginID')]);
+            // this.location.replaceState(`/profile/${localStorage.getItem('userLoginID')}`);
+            // window.location.reload();
+            this.profileFlag = true;
+          } else {
+            this.profileFlag = true;
           }
         });
     }
@@ -91,9 +97,6 @@ export class ProfileComponent implements OnInit {
         });
     }
   }
-
-  // public inputSubject: Subject<any> = new Subject<any>();
-  // public subscriptions: Subscription[] = [];
 
   public counterObj;
 
@@ -144,90 +147,7 @@ export class ProfileComponent implements OnInit {
           });
         }
       });
-
-    // this.getObjByLocaleUserID();
-
-    // this.crudService.handleData('posts').subscribe(data => this.storageService.books = data);
-
-    // this.storageService.books$.subscribe(value => console.log(value))
-    // this.storageService.books$.subscribe();
-
-    // this.crudService.handleData('posts').subscribe((value) => {
-    //   this.counterObj = value;
-    //   // console.log(value);
-    //   // console.log(...this.counterObj);
-    // });
-
-    // this.initForm();
   }
-
-  // getBooks() {
-  //   console.log(this.storageService.books);
-  // }
-
-  // public addFirebaseToken(): void {
-  //   this.crudService
-  //     .createEntity('picture', {
-  //       img:
-  //         'https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2019/07/Man-Silhouette.jpg',
-  //     })
-  //     .subscribe((value) => console.log(value));
-  // }
-
-  // public deleteFirebaseToken(): void {
-  //       this.crudService.deleteObject('posts', this.counterObj[this.counterObj.length - 1].id);
-  // }
-
-  // public delTappedBaseToken(id): void {
-  //   this.crudService.deleteObject('posts', id);
-  // }
-
-  // public getObjByLocaleUserID(): void {
-  //   this.counter = this.crudService
-  //     .getObjectByRef('users', localStorage.getItem('userLoginID'))
-  //     .subscribe();
-  //     // .subscribe((value) => console.log(value));
-  // }
-
-  // public trackFunction(index, item): string {
-  //   return item.id;
-  // }
-
-  // onSubmit() {
-  //   const { controls } = this.myFirstReactiveForm;
-  //   if (this.myFirstReactiveForm.invalid) {
-  //     Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-  //     return;
-  //   }
-  //   console.log(this.myFirstReactiveForm.value);
-  // }
-
-  // isControlInvalid(controlName: string): boolean {
-  //   const control = this.myFirstReactiveForm.controls[controlName];
-  //   const result = control.invalid && control.touched;
-  //   return result;
-  // }
-
-  // private initForm() {
-  //   this.myFirstReactiveForm = this.fb.group({
-  //     name: ['', [Validators.required, Validators.pattern(/[А-яA-z]/)]],
-  //     userTag: ['', [Validators.required, Validators.pattern(/^[A-z _.-]+$/)]],
-  //   });
-  // }
-
-  // public onFileSelected(event): void {
-  //   const file = event.target.files[0];
-  //   combineLatest(this.uploadService.uploadFile('test', file))
-  //     .pipe(
-  //       tap(([percent, link]) => {
-  //         this.progress = percent.toString();
-  //         console.log(link);
-  //         // this.imageLink = link;
-  //       }),
-  //       takeWhile(([percent, link]) => !link),
-  //     )
-  //     .subscribe();
-  // }
 
   public postOpen(card, postCreater, postCreaterID, postCreaterAvatar): void {
     const dialogRef = this.dialog.open(PostOpenComponent, {

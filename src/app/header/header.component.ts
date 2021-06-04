@@ -1,5 +1,5 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { Observable, Subject, combineLatest, of } from 'rxjs';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, combineLatest, of, Subscription } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -11,7 +11,7 @@ import {
 } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { AngularFirestore } from '@angular/fire/firestore';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CrudService } from '../services/crud/crud.service';
 import { StorageService } from '../services/storage/storage.service';
@@ -21,7 +21,7 @@ import { StorageService } from '../services/storage/storage.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   // public searcher: string;
   //
   // startAt = new Subject();
@@ -40,7 +40,9 @@ export class HeaderComponent implements OnInit {
 
   public tag: string;
 
-  public windowSize: boolean = false;
+  public windowSize = false;
+
+  public dest: Subscription;
 
   // public inputSubject: Subject<any> = new Subject<any>();
 
@@ -54,53 +56,69 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   public userSearcher(event) {
+    if (event === undefined) return;
     const letterCount = this.searcher.toLowerCase();
     this.usersHintCollections = [];
 
     if (this.searcher === '' && this.searcher.length === 0) {
+      this.usersHintCollections = this.usersCollections.slice(0, 7);
       return;
     }
     this.usersHintCollections = this.usersCollections.filter((element) => {
       if (element.user_name === '') {
         return letterCount.includes(element.name.toLowerCase().slice(0, this.searcher.length));
-      } else {
-        return letterCount.includes(element.user_name.toLowerCase().slice(0, this.searcher.length));
       }
+      return letterCount.includes(element.user_name.toLowerCase().slice(0, this.searcher.length));
     });
     // console.log(this.usersHintCollections);
   }
+
   public trackFunction(index, item): string {
     return item.id;
   }
 
   public redirectOnSlectedUserProfile(id) {
+    if (
+      id === localStorage.getItem('userLoginID') &&
+      this.router.url === `/profile/${localStorage.getItem('userLoginID')}`
+    ) {
+      return;
+    }
     localStorage.setItem('currentUserID', id);
-    this.location.replaceState(`/profile/${id}`);
-    window.location.reload();
-    // this.router.navigate(['/profile', id]);
+    if (this.router.url === '/feed') {
+      this.router.navigate(['/profile', id]);
+    } else {
+      this.location.replaceState(`/profile/${id}`);
+      window.location.reload();
+    }
   }
 
   public search() {
+    if (this.searcher === undefined) {
+      console.log(this.usersHintCollections);
+      if (this.usersHintCollections.length !== 0) {
+        // console.log(this.usersHintCollections[0].email);
+        if (
+          this.usersHintCollections[0].email === localStorage.getItem('userLoginID') &&
+          this.router.url === `/profile/${localStorage.getItem('userLoginID')}`
+        ) {
+          return;
+        }
+        localStorage.setItem('currentUserID', this.usersHintCollections[0].email);
+        if (this.router.url === '/feed') {
+          this.router.navigate(['/profile', this.usersHintCollections[0].email]);
+        } else {
+          this.location.replaceState(`/profile/${localStorage.getItem('currentUserID')}`);
+          window.location.reload();
+        }
+      }
+    }
     if (this.searcher.split('')[0] === '#') {
       console.log('###########');
       this.tag = this.searcher;
       this.storageService.tag = this.tag;
       localStorage.setItem('tag', this.tag);
       this.searcher = '';
-      return;
-    }
-    console.log(this.searcher);
-    localStorage.setItem('currentUserID', this.searcher);
-    console.log(this.router.url);
-
-    if (this.router.url === '/feed') {
-      this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
-      // window.location.reload();
-    } else {
-      this.searcher = '';
-      // this.router.navigate(['/profile', localStorage.getItem('currentUserID')]);
-      this.location.replaceState(`/profile/${localStorage.getItem('currentUserID')}`);
-      window.location.reload();
     }
   }
 
@@ -111,50 +129,14 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.windowSize = window.innerWidth > 850 ? true : false;
-    // this.crud.handleData('posts').subscribe((data) => this.storageService.books = data);
-    // this.storageService.setTag(localStorage.getItem('tag'));
-    // console.log(this.storageService.getTag());
-    // console.log(this.storageService.tagData);
+    this.windowSize = window.innerWidth > 850;
 
-    // this.storageService.tag = localStorage.getItem('tag');
-    // this.storageService.tag$.subscribe(value => console.log(value));
-
-    // this.storageService.books$.subscribe((value) => console.log(value));
-    // this.storageService.books$.subscribe(value => console.log(value))
-    // this.storageService.books$.subscribe();
-
-    this.crud.handleData('users').subscribe((value) => {
+    this.dest = this.crud.handleData('users').subscribe((value) => {
       this.usersCollections = value;
     });
-
-    // Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
-    //   this.firequery(value[0], value[1]).subscribe((emails) => {
-    //     this.emails = emails;
-    //   })
-    // })
-
-    // const url = 'https://api.github.com/search/users?q=';
-    // this.inputSubject
-    //   .pipe(
-    //     debounceTime(600),
-    //     map((value) => value.target.value),
-    //     filter((value: string) => value.length > 3),
-    //     distinctUntilChanged(),
-    //     switchMap((value: string) =>
-    //       ajax.getJSON(url + value).pipe(catchError(() => of('some error'))),
-    //     ),
-    //   )
-    //   .subscribe();
   }
 
-  // search($event) {
-  // const q = $event.target.value;
-  // this.startAt.next(q);
-  // this.endAt.next(q + '\uf8ff');
-  // }
-
-  // firequery(start, end) {
-  //   return this.afs.collection('users', ref => ref.limit(4).orderBy('email').startAt(start).endAt(end)).valueChanges();
-  // }
+  ngOnDestroy(): void {
+    this.dest.unsubscribe();
+  }
 }

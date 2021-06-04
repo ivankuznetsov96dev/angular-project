@@ -6,7 +6,7 @@
         <!--           [ngStyle]="{}"-->
         <!--           [ngClass]="{just_content: searcher}">-->
         <input type="text" class="input" maxlength="30"
-               [(ngModel)]="searcher" (keydown.enter)="search()" (ngModelChange)="userSearcher($event)"
+               [(ngModel)]="searcher" (ngModelChange)="userSearcher($event)" (keydown.enter)="search()"
                placeholder="search..."
                [matAutocomplete]="auto">
         <!--      <span>{{searcher}}</span>-->

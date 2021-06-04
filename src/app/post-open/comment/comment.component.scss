@@ -20,6 +20,7 @@
   max-width: 290px;
   font-size: small;
   position: relative;
+  margin: 5px;
 }
 
 ::ng-deep .mat-card-header-text {
@@ -31,8 +32,16 @@
   right: 1.2rem;
 }
 
-@media (max-width: 370px) {
+@media (max-width: 768px) {
   .card {
     min-width: 250px;
+    max-width: 100%;
   }
 }
+
+//@media (max-width: 370px) {
+//  .card {
+//    min-width: 250px;
+//    max-width: 100%;
+//  }
+//}
